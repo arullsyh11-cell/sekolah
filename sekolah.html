@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <script>
+    window["__codeletBootstrap__"] = JSON.parse('{"A":"A","B":"20260911-05-06910f9","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');
+  </script>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SD NEGERI LENGKONG WETAN 1</title>
+  
+  <!-- External Scripts & Fonts -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,700&amp;display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --navy: #123047;
+      --ink: #173548;
+      --cream: #fffaf0;
+      --sun: #fbbf24;
+      --mint: #dff5e6;
+      --coral: #f97563;
+      --sky: #dceefa;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: "DM Sans", sans-serif; color: var(--ink); background: var(--cream); overflow-x: hidden; padding-top: 76px; }
+    h1, h2, h3 { font-family: "Fraunces", serif; }
+    .page-shell { width: 100%; overflow: hidden; }
+    .soft-card { border: 1px solid rgba(18,48,71,.09); box-shadow: 0 10px 25px rgba(18,48,71,.06); transition: all 0.3s ease; }
+    .nav-link { position: relative; }
+    .nav-link:after { content: ""; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--coral); transition: width .2s ease; }
+    .nav-link:hover:after, .nav-link:focus:after { width: 100%; }
+    .filter-btn[aria-pressed="true"] { background: var(--navy); color: #fff; box-shadow: 0 4px 12px rgba(18,48,71,.2); }
+    
+    /* Tombol filter khusus untuk section program (latar belakang gelap) */
+    #program .filter-btn[aria-pressed="true"] { background: var(--sun); color: #123047; }
+
+    .program-card, .gallery-card, .news-card { transition: transform .25s ease, box-shadow .25s ease; }
+    .program-card:hover, .gallery-card:hover, .news-card:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(18,48,71,.12); }
+    
+    /* Smooth Animation untuk Filter Galeri & Program */
+    .gallery-item, .program-card, .news-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 1;
+      transform: scale(1);
+    }
+    .gallery-item.hide, .program-card.hide, .news-card.hide {
+      opacity: 0;
+      transform: scale(0.95);
+      pointer-events: none;
+      position: absolute !important;
+      visibility: hidden;
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+    }
+    .program-filter-btn, .gallery-filter-btn {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .program-filter-btn:hover, .gallery-filter-btn:hover {
+      transform: translateY(-2px);
+    }
+    .program-filter-btn:active, .gallery-filter-btn:active {
+      transform: translateY(0);
+    }
+    .modal-backdrop { background: rgba(18,48,71,.75); backdrop-filter: blur(6px); }
+    .is-hidden { display: none !important; }
+    
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; padding-top: 0; padding-bottom: 0; }
+    .faq-item.open .faq-answer { max-height: 200px; padding-bottom: 1.25rem; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform .2s ease; }
+    
+    :focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+
+    /* Mobile Nav Drawer Styling */
+    #mobile-nav {
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-in-out;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    #mobile-nav.open {
+      max-height: 400px;
+      opacity: 1;
+    }
+
+    /* Styling tombol filter galeri saat aktif */
+    #galeri .filter-btn[aria-pressed="true"] {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+      box-shadow: 0 4px 12px rgba(18,48,71,0.2);
+    }
+
+    @media(max-width: 767px) {
+      .desktop-nav { display: none; }
+    }
+    @media(min-width: 768px) {
+      #mobile-nav { display: none !important; }
+    }
+  </style>
+</head>
+<body data-template-id="__page-root" style="background: rgb(255, 250, 240);">
+  <div class="page-shell w-full">
+    
+    <!-- HEADER -->
+    <header data-template-id="site-header" class="canva-header fixed top-0 left-0 right-0 z-50 border-b border-slate-200/80 bg-[#fffaf0]/95 backdrop-blur-md shadow-xs">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
+        <a href="#beranda" class="flex items-center gap-3 no-underline text-[#123047] group" aria-label="Beranda SD NEGERI LENGKONG WETAN 1">
+          <span class="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center overflow-hidden shrink-0 rounded-xl bg-white shadow-xs p-1">
+            <img src="LOGO/Logo Sekolah Dasar (Logo SD).jpg" alt="Logo SD" class="h-full w-full object-contain scale-110 group-hover:scale-100 transition-transform">
+          </span>
+          <div>
+            <strong data-template-id="school-name" class="canva-text block text-xs sm:text-sm md:text-base font-bold leading-tight" style="color: rgb(18, 48, 71); font-weight: 700;">SD NEGERI LENGKONG WETAN 1</strong>
+            <span data-template-id="school-tagline" class="canva-text block text-[10px] sm:text-xs text-slate-500 font-medium">Belajar tumbuh dengan gembira</span>
+          </div>
+        </a>
+        <nav class="desktop-nav hidden md:flex items-center gap-6 text-sm font-semibold" aria-label="Navigasi utama">
+          <a class="nav-link text-[#123047] hover:text-[#f97563]" href="#beranda">Beranda</a>
+          <a class="nav-link text-[#123047] hover:text-[#f97563]" href="#profil">Profil</a>
+          <a class="nav-link text-[#123047] hover:text-[#f97563]" href="#program">Program</a>
+          <a class="nav-link text-[#123047] hover:text-[#f97563]" href="#berita">Berita</a>
+          <a class="nav-link text-[#123047] hover:text-[#f97563]" href="#agenda">Agenda</a>
+          <a class="nav-link text-[#123047] hover:text-[#f97563]" href="#galeri">Galeri</a>
+          <a class="nav-link text-[#123047] hover:text-[#f97563]" href="#kontak">Kontak</a>
+        </nav>
+        <button id="menu-button" type="button" class="rounded-xl p-2.5 text-[#123047] bg-slate-100/80 md:hidden focus:outline-none hover:bg-slate-200 transition-colors" aria-label="Buka menu" aria-expanded="false">
+          <i data-lucide="menu" class="h-6 w-6"></i>
+        </button>
+      </div>
+      
+      <!-- Mobile Navigation Drawer -->
+      <nav id="mobile-nav" class="flex flex-col gap-2 border-t border-slate-200 px-6 py-4 font-semibold bg-[#fffaf0] md:hidden shadow-lg" aria-label="Navigasi seluler">
+        <a href="#beranda" class="mobile-nav-link py-2 border-b border-slate-100 text-[#123047]">Beranda</a>
+        <a href="#profil" class="mobile-nav-link py-2 border-b border-slate-100 text-[#123047]">Profil</a>
+        <a href="#program" class="mobile-nav-link py-2 border-b border-slate-100 text-[#123047]">Program</a>
+        <a href="#berita" class="mobile-nav-link py-2 border-b border-slate-100 text-[#123047]">Berita</a>
+        <a href="#agenda" class="mobile-nav-link py-2 border-b border-slate-100 text-[#123047]">Agenda</a>
+        <a href="#galeri" class="mobile-nav-link py-2 border-b border-slate-100 text-[#123047]">Galeri</a>
+        <a href="#kontak" class="mobile-nav-link py-2 text-[#123047]">Kontak</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO SECTION -->
+      <section id="beranda" class="relative mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-16 md:py-24">
+        <div class="grid items-center gap-10 lg:grid-cols-[1.1fr_.9fr]">
+          <div class="text-center lg:text-left">
+            <p data-template-id="hero-eyebrow" class="canva-tag mb-4 inline-block rounded-full px-4 py-1.5 text-xs sm:text-sm font-bold shadow-2xs" style="background: rgb(223, 245, 230); color: rgb(25, 135, 84);">Pendidikan yang hangat dan bermakna</p>
+            <h1 data-template-id="hero-title" class="canva-text mx-auto lg:mx-0 max-w-2xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15]" style="color: rgb(18, 48, 71);">Membangun Generasi Cerdas, Kreatif, dan Berkarakter</h1>
+            <p data-template-id="hero-description" class="canva-text mx-auto lg:mx-0 mt-4 sm:mt-6 max-w-xl text-sm sm:text-base md:text-lg leading-relaxed text-slate-600">SD NEGERI LENGKONG WETAN 1 adalah ruang belajar yang aman, aktif, dan penuh rasa ingin tahu untuk setiap anak.</p>
+            <div class="mt-6 sm:mt-8 flex flex-wrap justify-center lg:justify-start gap-3">
+              <a data-template-id="hero-program-button" class="canva-link rounded-full bg-[#123047] text-white border-2 border-[#123047] px-6 py-3 text-sm sm:text-base font-bold no-underline transition-all hover:bg-[#1b4963] hover:shadow-lg text-center" href="#program">Lihat Program</a>
+            </div>
+            <div class="mt-8 sm:mt-10 flex items-center justify-center lg:justify-start gap-3 text-xs sm:text-sm font-medium text-slate-600">
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#dff5e6] text-[#198754]"><i data-lucide="shield-check" class="h-4 w-4"></i></span>
+              <span data-template-id="hero-trust-text" class="canva-text">Lingkungan belajar inklusif dan didampingi guru terpercaya.</span>
+            </div>
+          </div>
+          <div class="hero-art relative px-2 sm:px-0">
+            <div class="absolute -right-2 sm:-right-6 -top-4 sm:-top-6 h-24 w-24 sm:h-32 sm:w-32 rounded-full bg-[#fbbf24]/50 blur-xl"></div>
+            <div class="absolute -bottom-4 -left-4 h-24 w-24 sm:h-28 sm:w-28 rounded-full bg-[#f97563]/20 blur-xl"></div>
+            <img data-template-id="hero-image" loading="lazy" class="canva-image relative h-[280px] sm:h-[360px] md:h-[420px] w-full rounded-[2rem] sm:rounded-[2.5rem] object-cover shadow-xl" src="https://images.pexels.com/photos/8363576/pexels-photo-8363576.jpeg" alt="Sekelompok anak dan guru menikmati sesi belajar yang menyenangkan di kelas">
+            <div data-template-id="hero-image-note" class="canva-banner absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-auto sm:max-w-[260px] rounded-2xl p-3.5 sm:p-4 shadow-xl bg-white/95 backdrop-blur border border-slate-100">
+              <p data-template-id="hero-image-note-title" class="canva-text text-sm sm:text-base font-bold" style="color: rgb(18, 48, 71);">Belajar dengan rasa ingin tahu</p>
+              <p data-template-id="hero-image-note-text" class="canva-text mt-1 text-xs sm:text-sm text-slate-600">Setiap ide kecil anak dihargai dan dikembangkan.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENGAPA MEMILIH KAMI -->
+      <section class="bg-[#dceefa]/60 py-12 sm:py-20 border-y border-slate-200/50">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="max-w-2xl text-center mx-auto lg:mx-0 lg:text-left">
+            <p data-template-id="strength-eyebrow" class="canva-text text-xs sm:text-sm font-bold uppercase tracking-widest text-[#198754]">Mengapa memilih kami</p>
+            <h2 data-template-id="strength-title" class="canva-text mt-2 text-2xl sm:text-3xl md:text-4xl font-bold" style="color: rgb(18, 48, 71);">Fondasi terbaik untuk langkah besar anak</h2>
+          </div>
+          <div class="mt-8 sm:mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <article data-template-id="strength-card-1" class="canva-card soft-card rounded-3xl p-6 bg-white flex flex-col justify-between">
+              <div>
+                <div class="inline-flex p-3 rounded-2xl bg-amber-50 text-[#f97563] mb-4"><i data-lucide="sparkles" class="h-6 w-6"></i></div>
+                <h3 data-template-id="strength-card-1-title" class="canva-text text-lg sm:text-xl font-bold" style="color: rgb(18, 48, 71);">Kurikulum Aktif</h3>
+                <p data-template-id="strength-card-1-text" class="canva-text mt-2 text-sm sm:text-base leading-relaxed text-slate-600">Pembelajaran berbasis proyek, eksplorasi, dan pengalaman nyata.</p>
+              </div>
+            </article>
+            <article data-template-id="strength-card-2" class="canva-card soft-card rounded-3xl p-6 bg-white flex flex-col justify-between">
+              <div>
+                <div class="inline-flex p-3 rounded-2xl bg-emerald-50 text-[#198754] mb-4"><i data-lucide="users-round" class="h-6 w-6"></i></div>
+                <h3 data-template-id="strength-card-2-title" class="canva-text text-lg sm:text-xl font-bold" style="color: rgb(18, 48, 71);">Guru Berpengalaman</h3>
+                <p data-template-id="strength-card-2-text" class="canva-text mt-2 text-sm sm:text-base leading-relaxed text-slate-600">Pendamping yang sabar, inspiratif, dan memahami kebutuhan anak.</p>
+              </div>
+            </article>
+            <article data-template-id="strength-card-3" class="canva-card soft-card rounded-3xl p-6 bg-white flex flex-col justify-between">
+              <div>
+                <div class="inline-flex p-3 rounded-2xl bg-rose-50 text-[#f97563] mb-4"><i data-lucide="heart-handshake" class="h-6 w-6"></i></div>
+                <h3 data-template-id="strength-card-3-title" class="canva-text text-lg sm:text-xl font-bold" style="color: rgb(18, 48, 71);">Lingkungan Aman</h3>
+                <p data-template-id="strength-card-3-text" class="canva-text mt-2 text-sm sm:text-base leading-relaxed text-slate-600">Sekolah yang nyaman, suportif, dan menghargai setiap perbedaan.</p>
+              </div>
+            </article>
+            <article data-template-id="strength-card-4" class="canva-card soft-card rounded-3xl p-6 bg-white flex flex-col justify-between">
+              <div>
+                <div class="inline-flex p-3 rounded-2xl bg-amber-50 text-[#d89200] mb-4"><i data-lucide="trophy" class="h-6 w-6"></i></div>
+                <h3 data-template-id="strength-card-4-title" class="canva-text text-lg sm:text-xl font-bold" style="color: rgb(18, 48, 71);">Ekstrakurikuler</h3>
+                <p data-template-id="strength-card-4-text" class="canva-text mt-2 text-sm sm:text-base leading-relaxed text-slate-600">Pilihan kegiatan untuk menumbuhkan minat, bakat, dan percaya diri.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROFIL SEKOLAH -->
+      <section id="profil" class="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-20">
+        <div class="grid items-center gap-10 lg:grid-cols-2">
+          <div class="relative">
+            <img data-template-id="profile-image" loading="lazy" class="canva-image h-[280px] sm:h-[380px] md:h-[420px] w-full rounded-[2rem] sm:rounded-[2.5rem] object-cover shadow-xl" src="https://images.pexels.com/photos/8088232/pexels-photo-8088232.jpeg" alt="Guru ceria bersama sekelompok anak di ruang belajar">
+          </div>
+          <div>
+            <p data-template-id="profile-eyebrow" class="canva-text text-xs sm:text-sm font-bold uppercase tracking-widest text-[#f97563]">Profil sekolah</p>
+            <h2 data-template-id="profile-title" class="canva-text mt-2 text-2xl sm:text-3xl md:text-4xl font-bold" style="color: rgb(18, 48, 71);">Sekolah yang melihat setiap anak sebagai pribadi utuh</h2>
+            <p data-template-id="profile-text" class="canva-text mt-4 text-sm sm:text-base leading-relaxed text-slate-600">Kami memadukan akademik yang kuat, pembiasaan karakter positif, kreativitas, dan kebiasaan hidup sehat dalam pengalaman belajar yang menyenangkan.</p>
+            <div class="mt-8 grid grid-cols-2 gap-4">
+              <div data-template-id="stat-1" class="canva-card rounded-2xl p-4 sm:p-5 bg-[#dceefa]/70 border border-sky-100">
+                <strong data-template-id="stat-1-number" class="canva-text block text-2xl sm:text-3xl font-bold text-[#123047]">480+</strong>
+                <span data-template-id="stat-1-label" class="canva-text text-xs sm:text-sm text-slate-600 font-medium">Siswa aktif</span>
+              </div>
+              <div data-template-id="stat-2" class="canva-card rounded-2xl p-4 sm:p-5 bg-[#dff5e6]/70 border border-emerald-100">
+                <strong data-template-id="stat-2-number" class="canva-text block text-2xl sm:text-3xl font-bold text-[#123047]">36</strong>
+                <span data-template-id="stat-2-label" class="canva-text text-xs sm:text-sm text-slate-600 font-medium">Guru dan staf</span>
+              </div>
+              <div data-template-id="stat-3" class="canva-card rounded-2xl p-4 sm:p-5 bg-[#fff4d6]/70 border border-amber-100">
+                <strong data-template-id="stat-3-number" class="canva-text block text-2xl sm:text-3xl font-bold text-[#123047]">18</strong>
+                <span data-template-id="stat-3-label" class="canva-text text-xs sm:text-sm text-slate-600 font-medium">Ruang kelas</span>
+              </div>
+              <div data-template-id="stat-4" class="canva-card rounded-2xl p-4 sm:p-5 bg-[#fde3df]/70 border border-rose-100">
+                <strong data-template-id="stat-4-number" class="canva-text block text-2xl sm:text-3xl font-bold text-[#123047]">12</strong>
+                <span data-template-id="stat-4-label" class="canva-text text-xs sm:text-sm text-slate-600 font-medium">Tahun pengalaman</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROGRAM UNGGULAN -->
+      <section id="program" class="bg-[#123047] py-14 sm:py-20 text-white">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <p data-template-id="program-eyebrow" class="canva-text text-xs sm:text-sm font-bold uppercase tracking-widest text-[#fbbf24]">Program unggulan</p>
+          <h2 data-template-id="program-title" class="canva-text mt-2 text-2xl sm:text-3xl md:text-4xl font-bold text-white">Ruang tumbuh untuk banyak potensi</h2>
+          
+          <!-- Bagian Tombol Filter Program -->
+          <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 overflow-x-auto pb-2 scrollbar-none" role="group" aria-label="Filter program">
+            <button class="filter-btn program-filter-btn rounded-full bg-white/15 px-4 py-2 text-xs sm:text-sm font-semibold transition-all shrink-0 hover:bg-white/25 active:scale-95" aria-pressed="true" data-filter="program" data-value="semua">Semua</button>
+            <button class="filter-btn program-filter-btn rounded-full bg-white/15 px-4 py-2 text-xs sm:text-sm font-semibold transition-all shrink-0 hover:bg-white/25 active:scale-95" aria-pressed="false" data-filter="program" data-value="akademik">Akademik</button>
+            <button class="filter-btn program-filter-btn rounded-full bg-white/15 px-4 py-2 text-xs sm:text-sm font-semibold transition-all shrink-0 hover:bg-white/25 active:scale-95" aria-pressed="false" data-filter="program" data-value="karakter">Karakter</button>
+            <button class="filter-btn program-filter-btn rounded-full bg-white/15 px-4 py-2 text-xs sm:text-sm font-semibold transition-all shrink-0 hover:bg-white/25 active:scale-95" aria-pressed="false" data-filter="program" data-value="seni">Seni</button>
+            <button class="filter-btn program-filter-btn rounded-full bg-white/15 px-4 py-2 text-xs sm:text-sm font-semibold transition-all shrink-0 hover:bg-white/25 active:scale-95" aria-pressed="false" data-filter="program" data-value="olahraga">Olahraga</button>
+            <button class="filter-btn program-filter-btn rounded-full bg-white/15 px-4 py-2 text-xs sm:text-sm font-semibold transition-all shrink-0 hover:bg-white/25 active:scale-95" aria-pressed="false" data-filter="program" data-value="teknologi">Teknologi</button>
+          </div>
+
+          <div id="program-list" class="mt-6 sm:mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <article data-category="akademik" class="program-card canva-card rounded-3xl p-6 bg-[#1b4963] border border-white/5 flex flex-col justify-between">
+              <div>
+                <i data-lucide="book-marked" class="text-[#fbbf24] h-7 w-7 mb-4"></i>
+                <h3 class="canva-text text-lg sm:text-xl font-bold text-white">Literasi &amp; Numerasi</h3>
+                <p class="canva-text mt-2 text-sm sm:text-base leading-relaxed text-[#dceefa]/80">Kelas aktif untuk membangun dasar berpikir, membaca, dan memecahkan masalah.</p>
+              </div>
+            </article>
+            <article data-category="karakter" class="program-card canva-card rounded-3xl p-6 bg-[#1b4963] border border-white/5 flex flex-col justify-between">
+              <div>
+                <i data-lucide="heart" class="text-[#f97563] h-7 w-7 mb-4"></i>
+                <h3 class="canva-text text-lg sm:text-xl font-bold text-white">Karakter Cendekia</h3>
+                <p class="canva-text mt-2 text-sm sm:text-base leading-relaxed text-[#dceefa]/80">Pembiasaan empati, tanggung jawab, gotong royong, dan disiplin positif.</p>
+              </div>
+            </article>
+            <article data-category="seni" class="program-card canva-card rounded-3xl p-6 bg-[#1b4963] border border-white/5 flex flex-col justify-between">
+              <div>
+                <i data-lucide="palette" class="text-[#fbbf24] h-7 w-7 mb-4"></i>
+                <h3 class="canva-text text-lg sm:text-xl font-bold text-white">Studio Kreatif</h3>
+                <p class="canva-text mt-2 text-sm sm:text-base leading-relaxed text-[#dceefa]/80">Seni rupa, musik, dan pertunjukan untuk menyuarakan ide anak.</p>
+              </div>
+            </article>
+            <article data-category="olahraga" class="program-card canva-card rounded-3xl p-6 bg-[#1b4963] border border-white/5 flex flex-col justify-between">
+              <div>
+                <i data-lucide="medal" class="text-[#dff5e6] h-7 w-7 mb-4"></i>
+                <h3 class="canva-text text-lg sm:text-xl font-bold text-white">Klub Sehat &amp; Sportif</h3>
+                <p class="canva-text mt-2 text-sm sm:text-base leading-relaxed text-[#dceefa]/80">Olahraga terarah untuk membangun ketahanan, kerja tim, dan sportivitas.</p>
+              </div>
+            </article>
+            <article data-category="teknologi" class="program-card canva-card rounded-3xl p-6 bg-[#1b4963] border border-white/5 flex flex-col justify-between">
+              <div>
+                <i data-lucide="monitor-cog" class="text-[#fbbf24] h-7 w-7 mb-4"></i>
+                <h3 class="canva-text text-lg sm:text-xl font-bold text-white">Lab Digital</h3>
+                <p class="canva-text mt-2 text-sm sm:text-base leading-relaxed text-[#dceefa]/80">Pengenalan teknologi, logika komputasi, dan kreasi digital yang aman.</p>
+              </div>
+            </article>
+          </div>
+          <p id="program-empty" class="canva-text is-hidden mt-6 rounded-2xl bg-white/10 p-5 text-white text-center">Belum ada program dalam kategori ini.</p>
+        </div>
+      </section>
+
+      <!-- BERITA & PENGUMUMAN -->
+      <section id="berita" class="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20">
+        <p class="canva-text text-xs sm:text-sm font-bold uppercase tracking-widest text-[#f97563]">Kabar sekolah</p>
+        <h2 class="canva-text mt-2 text-2xl sm:text-3xl md:text-4xl font-bold" style="color: rgb(18, 48, 71);">Berita &amp; pengumuman terbaru</h2>
+        
+        <div class="mt-6 sm:mt-8 grid gap-4 md:grid-cols-3 items-center">
+          <div class="md:col-span-2">
+            <label for="news-search" class="canva-text block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Cari berita</label>
+            <input id="news-search" class="canva-input w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm focus:ring-2 focus:ring-[#f97563] shadow-2xs" type="search" placeholder="Cari berdasarkan kata kunci…">
+          </div>
+          <div>
+            <span class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Kategori</span>
+            <div class="flex flex-wrap gap-2">
+              <button class="filter-btn rounded-xl border border-slate-300 px-4 py-2.5 text-xs sm:text-sm font-bold shrink-0 bg-white" aria-pressed="true" data-filter="news" data-value="semua">Semua</button>
+              <button class="filter-btn rounded-xl border border-slate-300 px-4 py-2.5 text-xs sm:text-sm font-bold shrink-0 bg-white" aria-pressed="false" data-filter="news" data-value="berita">Berita</button>
+              <button class="filter-btn rounded-xl border border-slate-300 px-4 py-2.5 text-xs sm:text-sm font-bold shrink-0 bg-white" aria-pressed="false" data-filter="news" data-value="pengumuman">Pengumuman</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="news-list" class="mt-6 sm:mt-8 grid gap-5 md:grid-cols-3">
+          <article data-category="berita" data-search="festival sains siswa" class="news-card canva-card soft-card rounded-3xl p-6 bg-white flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full mb-3">Berita</span>
+              <h3 class="font-bold text-lg text-[#123047] mb-2">Festival Sains Anak 2026</h3>
+              <p class="text-sm text-slate-600 mb-4">Siswa kelas 4–6 menampilkan eksperimen sederhana yang penuh rasa ingin tahu.</p>
+            </div>
+            <div>
+              <div class="bg-[#fffaf0] p-3 rounded-xl text-xs text-slate-700 border border-amber-100 line-clamp-2">
+                Festival akan berlangsung di aula sekolah dan terbuka untuk umum.
+              </div>
+            </div>
+          </article>
+          <article data-category="pengumuman" data-search="penerimaan siswa baru pendaftaran" class="news-card canva-card soft-card rounded-3xl p-6 bg-white flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-3 py-1 text-xs font-semibold text-amber-700 bg-amber-50 rounded-full mb-3">Pengumuman</span>
+              <h3 class="font-bold text-lg text-[#123047] mb-2">Penerimaan Siswa Baru Dibuka</h3>
+              <p class="text-sm text-slate-600 mb-4">Pendaftaran tahun ajaran baru dapat dilakukan melalui formulir online sekolah.</p>
+            </div>
+            <div>
+              <div class="bg-[#fffaf0] p-3 rounded-xl text-xs text-slate-700 border border-amber-100 line-clamp-2">
+                Silakan siapkan data orang tua/wali dan calon siswa dengan lengkap.
+              </div>
+            </div>
+          </article>
+          <article data-category="berita" data-search="kelas hijau kebun sekolah" class="news-card canva-card soft-card rounded-3xl p-6 bg-white flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-3 py-1 text-xs font-semibold text-emerald-600 bg-emerald-50 rounded-full mb-3">Berita</span>
+              <h3 class="font-bold text-lg text-[#123047] mb-2">Kelas Hijau di Kebun Sekolah</h3>
+              <p class="text-sm text-slate-600 mb-4">Anak-anak belajar merawat tanaman sekaligus memahami siklus hidup makhluk hidup.</p>
+            </div>
+            <div>
+              <div class="bg-[#fffaf0] p-3 rounded-xl text-xs text-slate-700 border border-amber-100 line-clamp-2">
+                Kegiatan kebun menjadi bagian dari program pelestarian lingkungan sekolah.
+              </div>
+            </div>
+          </article>
+        </div>
+        <p id="news-empty" class="canva-text is-hidden mt-6 rounded-2xl bg-[#dceefa] p-5 text-[#245b7e] text-center font-medium">Berita yang Anda cari belum tersedia.</p>
+      </section>
+
+      <!-- AGENDA SEKOLAH -->
+      <section id="agenda" class="bg-[#dff5e6]/50 py-14 sm:py-20 border-y border-emerald-100">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <p class="canva-text text-xs sm:text-sm font-bold uppercase tracking-widest text-[#198754]">Agenda sekolah</p>
+              <h2 class="canva-text mt-2 text-2xl sm:text-3xl md:text-4xl font-bold" style="color: rgb(18, 48, 71);">Mari bertemu di kegiatan berikutnya</h2>
+            </div>
+            <div>
+              <label for="agenda-filter" class="canva-text block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Filter bulan</label>
+              <select id="agenda-filter" class="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#198754] shadow-2xs">
+                <option value="semua">Semua bulan</option>
+                <option value="september">September</option>
+                <option value="oktober">Oktober</option>
+              </select>
+            </div>
+          </div>
+          <div id="agenda-list" class="mt-6 sm:mt-8 grid gap-5 md:grid-cols-3">
+            <article data-month="september" class="canva-card rounded-3xl bg-white p-6 shadow-xs border border-emerald-50">
+              <p class="canva-text text-xs sm:text-sm font-bold text-[#f97563]">18 September 2026</p>
+              <h3 class="canva-text mt-2 text-lg sm:text-xl font-bold" style="color: rgb(18, 48, 71);">Hari Orang Tua di Kelas</h3>
+              <p class="canva-text mt-2 text-sm sm:text-base text-slate-600">Sesi berbagi proses belajar dan karya siswa bersama wali kelas.</p>
+            </article>
+            <article data-month="september" class="canva-card rounded-3xl bg-white p-6 shadow-xs border border-emerald-50">
+              <p class="canva-text text-xs sm:text-sm font-bold text-[#f97563]">26 September 2026</p>
+              <h3 class="canva-text mt-2 text-lg sm:text-xl font-bold" style="color: rgb(18, 48, 71);">Pekan Literasi</h3>
+              <p class="canva-text mt-2 text-sm sm:text-base text-slate-600">Mendongeng, tukar buku, dan pojok baca keluarga.</p>
+            </article>
+            <article data-month="oktober" class="canva-card rounded-3xl bg-white p-6 shadow-xs border border-emerald-50">
+              <p class="canva-text text-xs sm:text-sm font-bold text-[#f97563]">10 Oktober 2026</p>
+              <h3 class="canva-text mt-2 text-lg sm:text-xl font-bold" style="color: rgb(18, 48, 71);">Olimpiade Mini</h3>
+              <p class="canva-text mt-2 text-sm sm:text-base text-slate-600">Kegiatan olahraga dan permainan tim yang ceria.</p>
+            </article>
+          </div>
+          <p id="agenda-empty" class="canva-text is-hidden mt-6 rounded-2xl bg-white p-5 text-slate-600 text-center font-medium">Belum ada agenda pada bulan yang dipilih.</p>
+        </div>
+      </section>
+
+      <!-- GALERI KEGIATAN -->
+      <section id="galeri" class="bg-[#fff4d6]/60 py-14 sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <p class="canva-text text-xs sm:text-sm font-bold uppercase tracking-widest text-[#f97563]">Galeri kegiatan</p>
+          <h2 class="canva-text mt-2 text-2xl sm:text-3xl md:text-4xl font-bold" style="color: rgb(18, 48, 71);">Cerita ceria dari keseharian kami</h2>
+          
+          <!-- Tombol Filter Galeri (Disamakan & Smooth) -->
+          <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-2 overflow-x-auto pb-2 scrollbar-none" role="group" aria-label="Filter galeri">
+            <button class="filter-btn gallery-filter-btn rounded-full border border-amber-300 bg-white px-4 py-2 text-xs sm:text-sm font-bold transition-all shrink-0 shadow-2xs hover:bg-slate-50 active:scale-95" aria-pressed="true" data-filter="gallery" data-value="semua">Semua</button>
+            <button class="filter-btn gallery-filter-btn rounded-full border border-amber-300 bg-white px-4 py-2 text-xs sm:text-sm font-bold transition-all shrink-0 shadow-2xs hover:bg-slate-50 active:scale-95" aria-pressed="false" data-filter="gallery" data-value="belajar">Belajar</button>
+            <button class="filter-btn gallery-filter-btn rounded-full border border-amber-300 bg-white px-4 py-2 text-xs sm:text-sm font-bold transition-all shrink-0 shadow-2xs hover:bg-slate-50 active:scale-95" aria-pressed="false" data-filter="gallery" data-value="seni">Seni</button>
+            <button class="filter-btn gallery-filter-btn rounded-full border border-amber-300 bg-white px-4 py-2 text-xs sm:text-sm font-bold transition-all shrink-0 shadow-2xs hover:bg-slate-50 active:scale-95" aria-pressed="false" data-filter="gallery" data-value="olahraga">Olahraga</button>
+            <button class="filter-btn gallery-filter-btn rounded-full border border-amber-300 bg-white px-4 py-2 text-xs sm:text-sm font-bold transition-all shrink-0 shadow-2xs hover:bg-slate-50 active:scale-95" aria-pressed="false" data-filter="gallery" data-value="teknologi">Teknologi</button>
+          </div>
+
+          <div id="gallery-list" class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <button data-category="belajar" class="gallery-item gallery-card overflow-hidden rounded-3xl text-left shadow-xs bg-white border border-amber-100 flex flex-col" data-lightbox="0" data-img="https://images.pexels.com/photos/8926832/pexels-photo-8926832.jpeg" data-caption="Eksperimen sains">
+              <img loading="lazy" class="h-52 w-full object-cover" src="https://images.pexels.com/photos/8926832/pexels-photo-8926832.jpeg" alt="Eksperimen sains">
+              <span class="block p-4 text-sm sm:text-base font-bold" style="color: rgb(18, 48, 71);">Eksperimen sains</span>
+            </button>
+            <button data-category="seni" class="gallery-item gallery-card overflow-hidden rounded-3xl text-left shadow-xs bg-white border border-amber-100 flex flex-col" data-lightbox="1" data-img="https://images.pexels.com/photos/8467277/pexels-photo-8467277.jpeg" data-caption="Kelas seni">
+              <img loading="lazy" class="h-52 w-full object-cover" src="https://images.pexels.com/photos/8467277/pexels-photo-8467277.jpeg" alt="Kelas seni">
+              <span class="block p-4 text-sm sm:text-base font-bold" style="color: rgb(18, 48, 71);">Kelas seni</span>
+            </button>
+            <button data-category="olahraga" class="gallery-item gallery-card overflow-hidden rounded-3xl text-left shadow-xs bg-white border border-amber-100 flex flex-col" data-lightbox="2" data-img="https://images.pexels.com/photos/8927014/pexels-photo-8927014.jpeg" data-caption="Bermain bersama">
+              <img loading="lazy" class="h-52 w-full object-cover" src="https://images.pexels.com/photos/8927014/pexels-photo-8927014.jpeg" alt="Bermain bersama">
+              <span class="block p-4 text-sm sm:text-base font-bold" style="color: rgb(18, 48, 71);">Bermain bersama</span>
+            </button>
+            <button data-category="teknologi" class="gallery-item gallery-card overflow-hidden rounded-3xl text-left shadow-xs bg-white border border-amber-100 flex flex-col" data-lightbox="3" data-img="https://images.pexels.com/photos/5621938/pexels-photo-5621938.jpeg" data-caption="Lab digital">
+              <img loading="lazy" class="h-52 w-full object-cover" src="https://images.pexels.com/photos/5621938/pexels-photo-5621938.jpeg" alt="Lab digital">
+              <span class="block p-4 text-sm sm:text-base font-bold" style="color: rgb(18, 48, 71);">Lab digital</span>
+            </button>
+            <button data-category="belajar" class="gallery-item gallery-card overflow-hidden rounded-3xl text-left shadow-xs bg-white border border-amber-100 flex flex-col" data-lightbox="4" data-img="https://images.pexels.com/photos/5427830/pexels-photo-5427830.jpeg" data-caption="Belajar aktif">
+              <img loading="lazy" class="h-52 w-full object-cover" src="https://images.pexels.com/photos/5427830/pexels-photo-5427830.jpeg" alt="Belajar aktif">
+              <span class="block p-4 text-sm sm:text-base font-bold" style="color: rgb(18, 48, 71);">Belajar aktif</span>
+            </button>
+            <button data-category="komunitas" class="gallery-item gallery-card overflow-hidden rounded-3xl text-left shadow-xs bg-white border border-amber-100 flex flex-col" data-lightbox="5" data-img="https://images.pexels.com/photos/16850895/pexels-photo-16850895.jpeg" data-caption="Merawat kebun sekolah">
+              <img loading="lazy" class="h-52 w-full object-cover" src="https://images.pexels.com/photos/16850895/pexels-photo-16850895.jpeg" alt="Merawat kebun sekolah">
+              <span class="block p-4 text-sm sm:text-base font-bold" style="color: rgb(18, 48, 71);">Merawat kebun sekolah</span>
+            </button>
+          </div>
+          <p id="gallery-empty" class="canva-text is-hidden mt-6 rounded-2xl bg-white p-5 text-slate-600 text-center font-medium">Belum ada foto untuk kategori ini.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="mx-auto max-w-4xl px-4 sm:px-6 py-14 sm:py-20">
+        <p class="canva-text text-center text-xs sm:text-sm font-bold uppercase tracking-widest text-[#f97563]">Pertanyaan umum</p>
+        <h2 class="canva-text mt-2 text-center text-2xl sm:text-3xl md:text-4xl font-bold" style="color: rgb(18, 48, 71);">Hal yang sering ditanyakan orang tua</h2>
+        <div class="mt-8 sm:mt-10 space-y-4">
+          <article class="faq-item canva-panel rounded-2xl border border-slate-200 bg-white shadow-2xs overflow-hidden">
+            <button class="flex w-full items-center justify-between p-5 text-left text-sm sm:text-base font-bold transition-colors hover:bg-slate-50" data-faq style="color: rgb(18, 48, 71);">
+              <span>Bagaimana proses pendaftaran siswa baru?</span>
+              <i data-lucide="plus" class="faq-icon text-[#f97563] shrink-0 h-5 w-5"></i>
+            </button>
+            <div class="faq-answer canva-text px-5 text-sm sm:text-base leading-relaxed text-slate-600">
+              Isi formulir pendaftaran, lalu tim sekolah akan menghubungi Anda untuk verifikasi data dan jadwal kunjungan.
+            </div>
+          </article>
+          <article class="faq-item canva-panel rounded-2xl border border-slate-200 bg-white shadow-2xs overflow-hidden">
+            <button class="flex w-full items-center justify-between p-5 text-left text-sm sm:text-base font-bold transition-colors hover:bg-slate-50" data-faq style="color: rgb(18, 48, 71);">
+              <span>Pukul berapa jam belajar dimulai?</span>
+              <i data-lucide="plus" class="faq-icon text-[#f97563] shrink-0 h-5 w-5"></i>
+            </button>
+            <div class="faq-answer canva-text px-5 text-sm sm:text-base leading-relaxed text-slate-600">
+              Contoh jam belajar adalah Senin–Jumat, pukul 07.30–13.30. Silakan sesuaikan dengan kebijakan sekolah.
+            </div>
+          </article>
+          <article class="faq-item canva-panel rounded-2xl border border-slate-200 bg-white shadow-2xs overflow-hidden">
+            <button class="flex w-full items-center justify-between p-5 text-left text-sm sm:text-base font-bold transition-colors hover:bg-slate-50" data-faq style="color: rgb(18, 48, 71);">
+              <span>Apakah informasi biaya tersedia?</span>
+              <i data-lucide="plus" class="faq-icon text-[#f97563] shrink-0 h-5 w-5"></i>
+            </button>
+            <div class="faq-answer canva-text px-5 text-sm sm:text-base leading-relaxed text-slate-600">
+              Tim administrasi akan menjelaskan rincian biaya pendidikan setelah kebutuhan calon siswa dan keluarga didiskusikan.
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER & KONTAK -->
+    <footer id="kontak" class="border-t border-slate-800 bg-[#123047] text-white py-12 sm:py-16">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 grid gap-8 md:grid-cols-3">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center overflow-hidden shrink-0 rounded-xl bg-white p-1">
+              <img src="LOGO/Logo Sekolah Dasar (Logo SD).jpg" alt="Logo SD" class="h-full w-full object-contain">
+            </span>
+            <strong class="text-base sm:text-lg font-bold">SD NEGERI LENGKONG WETAN 1</strong>
+          </div>
+          <p class="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed">Mewujudkan lingkungan belajar yang menyenangkan, kreatif, dan penuh nilai positif bagi anak-anak Indonesia.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm sm:text-base text-[#fbbf24]">Hubungi Kami</h4>
+          <p class="mt-3 text-xs sm:text-sm text-slate-300">Jl. Pendidikan Cendekia No. 45, Kota Nusantara</p>
+          <p class="mt-1.5 text-xs sm:text-sm text-slate-300">Email: info@sdcendekianusantara.sch.id</p>
+          <p class="mt-1.5 text-xs sm:text-sm text-slate-300">Telepon: (021) 555-8899</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm sm:text-base text-[#fbbf24]">Jam Operasional</h4>
+          <p class="mt-3 text-xs sm:text-sm text-slate-300">Senin - Jumat: 07.00 - 15.00 WIB</p>
+          <p class="mt-1.5 text-xs sm:text-sm text-slate-300">Sabtu - Minggu: Libur</p>
+        </div>
+      </div>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-6 sm:pt-8 mt-10 border-t border-slate-700/60 text-center text-xs sm:text-sm text-slate-400">
+        <p>&copy; 2026 SD NEGERI LENGKONG WETAN 1. Hak cipta dilindungi.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- LIGHTBOX GALERI -->
+  <div id="lightbox-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 is-hidden">
+    <div class="relative max-w-2xl w-full bg-white rounded-3xl overflow-hidden p-5 sm:p-6 shadow-2xl text-center">
+      <button id="close-lightbox" type="button" class="absolute right-4 top-4 z-10 rounded-full bg-slate-100 p-2 text-slate-700 hover:bg-slate-200 transition-colors">
+        <i data-lucide="x" class="h-5 w-5"></i>
+      </button>
+      <img id="lightbox-img" src="" alt="Zoom" class="max-h-[60vh] mx-auto rounded-2xl object-contain shadow-xs">
+      <p id="lightbox-caption" class="mt-4 text-base sm:text-lg font-bold text-[#123047]"></p>
+    </div>
+  </div>
+
+  <!-- INTERACTIVITY & SCRIPT ENHANCEMENTS -->
+  <script>
+    lucide.createIcons();
+
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menu-button');
+    const mobileNav = document.getElementById('mobile-nav');
+    menuBtn.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', isOpen);
+    });
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => mobileNav.classList.remove('open'));
+    });
+
+    // FAQ Accordion
+    document.querySelectorAll('[data-faq]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        item.classList.toggle('open');
+      });
+    });
+
+    // Filter Programs dengan Transisi Halus
+    const programBtns = document.querySelectorAll('[data-filter="program"]');
+    const programCards = document.querySelectorAll('#program-list article');
+    const programEmpty = document.getElementById('program-empty');
+
+    programBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        programBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        const val = btn.dataset.value;
+        let count = 0;
+
+        programCards.forEach(card => {
+          if (val === 'semua' || card.dataset.category === val) {
+            card.classList.remove('hide');
+            count++;
+          } else {
+            card.classList.add('hide');
+          }
+        });
+        programEmpty.classList.toggle('is-hidden', count > 0);
+      });
+    });
+
+    // Filter News & Search
+    const newsBtns = document.querySelectorAll('[data-filter="news"]');
+    const newsSearch = document.getElementById('news-search');
+    const newsCards = document.querySelectorAll('#news-list article');
+    const newsEmpty = document.getElementById('news-empty');
+
+    function filterNews() {
+      const activeFilterBtn = document.querySelector('[data-filter="news"][aria-pressed="true"]');
+      const activeFilter = activeFilterBtn ? activeFilterBtn.dataset.value : 'semua';
+      const query = newsSearch.value.toLowerCase().trim();
+      let count = 0;
+      
+      newsCards.forEach(card => {
+        const cat = card.dataset.category;
+        const searchTxt = card.dataset.search || '';
+        const titleText = card.querySelector('h3').textContent.toLowerCase();
+        
+        const matchesCat = (activeFilter === 'semua' || cat === activeFilter);
+        const matchesSearch = (!query || titleText.includes(query) || searchTxt.includes(query));
+
+        if (matchesCat && matchesSearch) {
+          card.classList.remove('hide');
+          count++;
+        } else {
+          card.classList.add('hide');
+        }
+      });
+      newsEmpty.classList.toggle('is-hidden', count > 0);
+    }
+
+    newsBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        newsBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        filterNews();
+      });
+    });
+    newsSearch.addEventListener('input', filterNews);
+
+    // Filter Agenda Month
+    const agendaFilter = document.getElementById('agenda-filter');
+    const agendaCards = document.querySelectorAll('#agenda-list article');
+    const agendaEmpty = document.getElementById('agenda-empty');
+    agendaFilter.addEventListener('change', () => {
+      const val = agendaFilter.value;
+      let count = 0;
+      agendaCards.forEach(card => {
+        if (val === 'semua' || card.dataset.month === val) {
+          card.classList.remove('is-hidden');
+          count++;
+        } else {
+          card.classList.add('is-hidden');
+        }
+      });
+      agendaEmpty.classList.toggle('is-hidden', count > 0);
+    });
+
+    // Smooth Filter Gallery dengan Transisi CSS (.hide)
+    const galleryBtns = document.querySelectorAll('[data-filter="gallery"]');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryEmpty = document.getElementById('gallery-empty');
+
+    galleryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        galleryBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        const val = btn.dataset.value;
+        let count = 0;
+
+        galleryItems.forEach(item => {
+          if (val === 'semua' || item.dataset.category === val) {
+            item.classList.remove('hide');
+            count++;
+          } else {
+            item.classList.add('hide');
+          }
+        });
+        galleryEmpty.classList.toggle('is-hidden', count > 0);
+      });
+    });
+
+    // Lightbox Gallery
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeLightbox = document.getElementById('close-lightbox');
+
+    galleryItems.forEach(card => {
+      card.addEventListener('click', () => {
+        const imgSrc = card.dataset.img;
+        const captionText = card.dataset.caption;
+        if (imgSrc) {
+          lightboxImg.src = imgSrc;
+          lightboxCaption.textContent = captionText;
+          lightboxModal.classList.remove('is-hidden');
+        }
+      });
+    });
+
+    closeLightbox.addEventListener('click', () => lightboxModal.classList.add('is-hidden'));
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) lightboxModal.classList.add('is-hidden');
+    });
+  </script>
+</body>
+</html>
