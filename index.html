@@ -1,55 +1,350 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="assets/logo-school2.png">
-  <meta name="description" content="Website profil sekolah resmi — informasi, berita, agenda, prestasi, alumni, PPDB, dan layanan sekolah.">
-  <title>SDN Lengkong Wetan 01 — Official School Website</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Website resmi SDN LENGKONG WETAN 1 sebagai pusat informasi sekolah, profil, fasilitas, berita, kegiatan, prestasi, PPDB, dan kontak." />
+  <meta name="theme-color" content="#0c2340" />
+  <title>SDN LENGKONG WETAN 1 — Website Resmi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app-loading" class="app-loading" aria-label="Memuat website"><div class="loader"></div></div>
-  <div class="topbar">
-    <div class="container topbar-inner">
-      <span id="topbarTagline">Portal Informasi Resmi Sekolah</span>
-      <div class="topbar-actions"><span>Senin–Jumat · 07.00–15.30</span><a href="#contact">Kontak</a></div>
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+
+  <header class="site-header" id="top">
+    <div class="top-strip">
+      <div class="container top-strip-inner">
+        <span>Selamat Datang di Website Resmi SDN LENGKONG WETAN 1</span>
+        <span class="top-strip-note">Lengkong Wetan • Tangerang Selatan • Banten</span>
+      </div>
+    </div>
+
+    <nav class="navbar" aria-label="Navigasi utama">
+      <div class="container nav-inner">
+        <a class="brand" href="#beranda" aria-label="SDN LENGKONG WETAN 1 - Beranda">
+          <div class="brand-mark"><img src="assets/logo-school2.png" alt="Logo SDN LENGKONG WETAN 1"></div>
+          <div class="brand-copy">
+            <strong>SDN LENGKONG WETAN 1</strong>
+            <span>Website Resmi Sekolah</span>
+          </div>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav-menu" id="main-menu">
+          <a href="#beranda">Beranda</a>
+          <a href="#profil">Profil Sekolah</a>
+          <a href="#fasilitas">Fasilitas</a>
+          <a href="#berita">Berita</a>
+          <a href="#kegiatan">Kegiatan</a>
+          <a href="#prestasi">Prestasi</a>
+          <a href="#ppdb">PPDB</a>
+          <a href="#kontak" class="nav-cta">Kontak</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="beranda">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <div class="hero-kicker"><span class="kicker-dot"></span> Mendidik • Menginspirasi • Berprestasi</div>
+        <h1>SDN LENGKONG WETAN 1</h1>
+        <p class="hero-tagline">Membangun generasi berkarakter, cerdas, kreatif, dan siap menghadapi masa depan.</p>
+
+        <form class="hero-search" id="globalSearchForm" role="search">
+          <label class="sr-only" for="globalSearch">Cari informasi sekolah</label>
+          <div class="search-wrap">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="globalSearch" type="search" placeholder="Cari informasi sekolah..." autocomplete="off" />
+            <button type="submit">Cari</button>
+          </div>
+          <p class="search-feedback" id="globalSearchFeedback" aria-live="polite"></p>
+        </form>
+
+        <div class="hero-actions">
+          <a href="#profil" class="btn btn-primary">Profil Sekolah</a>
+          <a href="#berita" class="btn btn-secondary">Berita Terbaru</a>
+          <a href="#ppdb" class="btn btn-secondary">Info PPDB</a>
+          <a href="#kontak" class="btn btn-secondary">Hubungi Kami</a>
+        </div>
+      </div>
+      <div class="hero-wave" aria-hidden="true"></div>
+    </section>
+
+    <section class="quick-info section-sm">
+      <div class="container info-grid">
+        <article class="info-tile">
+          <div class="info-icon">🏫</div>
+          <div><span>Institusi</span><strong>Sekolah Dasar Negeri</strong></div>
+        </article>
+        <article class="info-tile">
+          <div class="info-icon">👤</div>
+          <div><span>Kepala Sekolah</span><strong>Tarsono, S.Pd., M.M.</strong></div>
+        </article>
+        <article class="info-tile">
+          <div class="info-icon">📚</div>
+          <div><span>Fokus</span><strong>Pendidikan Karakter & Prestasi</strong></div>
+        </article>
+        <article class="info-tile">
+          <div class="info-icon">🧭</div>
+          <div><span>Layanan</span><strong>Informasi Sekolah & PPDB</strong></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="profil">
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="eyebrow">PROFIL SEKOLAH</span><h2>Satu halaman untuk mengenal sekolah lebih dekat.</h2></div>
+        </div>
+
+        <div class="profile-intro grid-2">
+          <div class="image-card tall-photo">
+            <img src="assets/profile-school.jpg" alt="Foto lingkungan SDN LENGKONG WETAN 1" loading="lazy" />
+            <div class="image-caption">Lingkungan belajar yang aman, nyaman, dan mendorong siswa aktif berkembang.</div>
+          </div>
+          <div class="content-card">
+            <span class="eyebrow">Tentang Sekolah</span>
+            <h3>Tempat tumbuhnya generasi yang berkarakter dan berdaya saing.</h3>
+            <p>SDN LENGKONG WETAN 1 hadir sebagai satuan pendidikan dasar yang menempatkan pembelajaran bermakna, pembentukan karakter, literasi, kreativitas, dan kolaborasi sebagai bagian penting dari pengalaman belajar siswa.</p>
+            <p class="muted">Informasi profil sekolah disajikan untuk membantu masyarakat mengenal lingkungan dan layanan pendidikan sekolah.</p>
+            <div class="mini-stats">
+              <div><strong>01</strong><span>Karakter</span></div>
+              <div><strong>02</strong><span>Literasi</span></div>
+              <div><strong>03</strong><span>Kreativitas</span></div>
+              <div><strong>04</strong><span>Kolaborasi</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-stack">
+          <article class="profile-block">
+            <div class="block-marker">01</div>
+            <div><h3>Sejarah Sekolah</h3><p>SDN LENGKONG WETAN 1 berkembang sebagai bagian dari layanan pendidikan dasar bagi masyarakat di wilayah Lengkong Wetan. Sekolah terus berupaya memperkuat mutu pembelajaran, pengembangan kompetensi tenaga pendidik, pemanfaatan teknologi, serta keterlibatan orang tua dan masyarakat dalam mendukung pendidikan anak.</p><p>Sekolah terus berkembang melalui peningkatan mutu pembelajaran, penguatan karakter, dan kolaborasi bersama orang tua serta masyarakat.</p></div>
+          </article>
+
+          <div class="grid-2 compact-blocks">
+            <article class="vision-card"><span class="card-label">VISI</span><h3>Terwujudnya peserta didik yang berkarakter, berprestasi, kreatif, sehat, dan berwawasan lingkungan.</h3></article>
+            <article class="mission-card"><span class="card-label">MISI</span><ul><li>Menyelenggarakan pembelajaran yang aktif, aman, dan berpusat pada peserta didik.</li><li>Menumbuhkan karakter positif, disiplin, gotong royong, dan tanggung jawab.</li><li>Mendorong literasi, numerasi, kreativitas, seni, olahraga, dan teknologi.</li><li>Membangun kemitraan yang sehat dengan orang tua dan masyarakat.</li></ul></article>
+          </div>
+
+          <article class="profile-block profile-block-accent">
+            <div class="block-marker">02</div>
+            <div><h3>Tujuan Sekolah</h3><div class="goal-grid"><div><b>Akademik</b><span>Menguatkan kemampuan literasi, numerasi, sains, dan berpikir kritis.</span></div><div><b>Karakter</b><span>Membiasakan perilaku jujur, disiplin, peduli, dan bertanggung jawab.</span></div><div><b>Talenta</b><span>Mengembangkan minat dan bakat melalui kegiatan akademik maupun nonakademik.</span></div><div><b>Kemandirian</b><span>Membentuk siswa yang percaya diri, sehat, adaptif, dan mampu bekerja sama.</span></div></div></div>
+          </article>
+
+          <article class="headmaster-card">
+            <div class="headmaster-photo">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" alt="Foto Kepala Sekolah" loading="lazy" data-fallback-label="Foto Kepala Sekolah" />
+            </div>
+            <div class="headmaster-copy"><span class="eyebrow">SAMBUTAN KEPALA SEKOLAH</span><h3>Tarsono, S.Pd., M.M.</h3><p class="role">Kepala Sekolah</p><p>“Selamat datang di website resmi SDN LENGKONG WETAN 1. Website ini menjadi ruang informasi bersama untuk mempererat komunikasi sekolah dengan siswa, orang tua, guru, alumni, dan masyarakat.”</p><p>Melalui semangat kolaborasi dan pembelajaran yang berkelanjutan, kami berkomitmen menghadirkan lingkungan sekolah yang aman, inklusif, ramah anak, serta mendorong setiap peserta didik untuk tumbuh sesuai potensi terbaiknya.</p></div>
+          </article>
+
+          <article class="structure-card">
+            <div class="section-heading small"><div><span class="eyebrow">STRUKTUR ORGANISASI</span><h3>Organisasi sekolah yang mendukung layanan pendidikan.</h3></div></div>
+            <div class="org-chart">
+              <div class="org-node top">Kepala Sekolah<br><strong>Tarsono, S.Pd., M.M.</strong></div>
+              <div class="org-connector"></div>
+              <div class="org-row"><div class="org-node">Koordinator<br>Bidang Kurikulum</div><div class="org-node">Koordinator<br>Kesiswaan</div><div class="org-node">Koordinator<br>Sarpras</div><div class="org-node">Administrasi / Tata Usaha</div></div>
+            </div>
+          </article>
+
+          <article class="staff-section">
+            <div class="section-heading small"><div><span class="eyebrow">GURU & TENAGA KEPENDIDIKAN</span><h3>Tim yang mendampingi proses belajar siswa.</h3></div></div>
+            <div class="staff-grid" id="staffGrid">
+              <article class="person-card"><img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" alt="Guru kelas" loading="lazy" data-fallback-label="Guru Kelas" /><div><h4>Nur Aini, S.Pd.</h4><span>Guru Kelas</span><small>Pembelajaran Tematik</small></div></article>
+              <article class="person-card"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80" alt="Guru kelas" loading="lazy" data-fallback-label="Guru Kelas" /><div><h4>Rina Marlina, S.Pd.</h4><span>Guru Kelas</span><small>Literasi & Numerasi</small></div></article>
+              <article class="person-card"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Guru olahraga" loading="lazy" data-fallback-label="Guru PJOK" /><div><h4>Dedi Pratama, S.Pd.</h4><span>Guru PJOK</span><small>Pendidikan Jasmani</small></div></article>
+              <article class="person-card"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Guru agama" loading="lazy" data-fallback-label="Guru Agama" /><div><h4>Siti Rahma, S.Ag.</h4><span>Guru Pendidikan Agama</span><small>Karakter & Keagamaan</small></div></article>
+              <article class="person-card"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Tenaga administrasi" loading="lazy" data-fallback-label="Administrasi" /><div><h4>Andi Saputra</h4><span>Tenaga Administrasi</span><small>Administrasi Sekolah</small></div></article>
+              <article class="person-card"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80" alt="Operator sekolah" loading="lazy" data-fallback-label="Operator Sekolah" /><div><h4>Fajar Hidayat, S.Kom.</h4><span>Operator Sekolah</span><small>Data & Teknologi</small></div></article>
+            </div>
+          </article>
+
+          <article class="data-school-card">
+            <div><span class="eyebrow">DATA SEKOLAH</span><h3>Informasi pokok satuan pendidikan.</h3></div>
+            <div class="data-table-wrap"><table><tbody>
+              <tr><th>Nama Sekolah</th><td>SDN LENGKONG WETAN 1</td></tr>
+              <tr><th>Status</th><td>Negeri</td></tr>
+              <tr><th>Jenjang</th><td>Sekolah Dasar</td></tr>
+              <tr><th>Kepala Sekolah</th><td>Tarsono, S.Pd., M.M.</td></tr>
+              <tr><th>NPSN</th><td>12345678</td></tr>
+              <tr><th>Alamat</th><td>Lengkong Wetan, Tangerang Selatan, Banten</td></tr>
+              <tr><th>Email</th><td>info@sdnlengkongwetan1.sch.id</td></tr>
+            </tbody></table></div>
+          </article>
+
+          <article class="accreditation-card">
+            <div class="accred-badge">A</div>
+            <div><span class="eyebrow">AKREDITASI</span><h3>Akreditasi Sekolah</h3><p><b>Nilai / peringkat:</b> A</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="fasilitas">
+      <div class="container">
+        <div class="section-heading"><div><span class="eyebrow">FASILITAS SEKOLAH</span><h2>Ruang dan layanan yang mendukung pengalaman belajar.</h2></div></div>
+        <div class="facility-grid" id="facilityGrid">
+          <article class="facility-card searchable-card" data-search="koperasi fasilitas belanja kebutuhan siswa">
+            <button class="card-image-button" type="button" data-modal="facility-koperasi" aria-label="Lihat detail Koperasi"><img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=85" alt="Koperasi sekolah" loading="lazy" data-fallback-label="Koperasi" /></button>
+            <div class="facility-copy"><span class="card-label">FASILITAS</span><h3>Koperasi</h3><p>Layanan penyedia kebutuhan sederhana warga sekolah dan sarana pembelajaran ekonomi.</p><button class="text-link" type="button" data-modal="facility-koperasi">Lihat detail <span>→</span></button></div>
+          </article>
+          <article class="facility-card searchable-card" data-search="perpustakaan fasilitas buku literasi membaca">
+            <button class="card-image-button" type="button" data-modal="facility-perpustakaan" aria-label="Lihat detail Perpustakaan"><img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=900&q=85" alt="Perpustakaan sekolah" loading="lazy" data-fallback-label="Perpustakaan" /></button>
+            <div class="facility-copy"><span class="card-label">FASILITAS</span><h3>Perpustakaan</h3><p>Ruang literasi untuk membaca, belajar mandiri, riset sederhana, dan kegiatan pembiasaan.</p><button class="text-link" type="button" data-modal="facility-perpustakaan">Lihat detail <span>→</span></button></div>
+          </article>
+          <article class="facility-card searchable-card" data-search="mushola fasilitas ibadah kegiatan keagamaan">
+            <button class="card-image-button" type="button" data-modal="facility-mushola" aria-label="Lihat detail Mushola"><img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=900&q=85" alt="Mushola" loading="lazy" data-fallback-label="Mushola" /></button>
+            <div class="facility-copy"><span class="card-label">FASILITAS</span><h3>Mushola</h3><p>Tempat ibadah dan pembinaan kegiatan keagamaan yang mendukung pembentukan karakter.</p><button class="text-link" type="button" data-modal="facility-mushola">Lihat detail <span>→</span></button></div>
+          </article>
+          <article class="facility-card searchable-card" data-search="kantin fasilitas makanan minuman sehat">
+            <button class="card-image-button" type="button" data-modal="facility-kantin" aria-label="Lihat detail Kantin"><img src="https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=900&q=85" alt="Kantin sekolah" loading="lazy" data-fallback-label="Kantin" /></button>
+            <div class="facility-copy"><span class="card-label">FASILITAS</span><h3>Kantin</h3><p>Tempat penyedia makanan dan minuman yang mendukung kebutuhan siswa selama di sekolah.</p><button class="text-link" type="button" data-modal="facility-kantin">Lihat detail <span>→</span></button></div>
+          </article>
+        </div>
+        <div class="empty-state" id="facilityEmpty" hidden>Fasilitas yang dicari belum ditemukan.</div>
+      </div>
+    </section>
+
+    <section class="section" id="berita">
+      <div class="container">
+        <div class="section-heading"><div><span class="eyebrow">BERITA SEKOLAH</span><h2>Kabar terbaru dari lingkungan sekolah.</h2></div></div>
+        <div class="filter-toolbar">
+          <div class="input-icon"><span>⌕</span><input type="search" id="newsSearch" placeholder="Cari judul berita..." aria-label="Cari berita" /></div>
+          <label class="select-wrap"><span class="sr-only">Kategori berita</span><select id="newsFilter"><option value="all">Semua kategori</option><option value="akademik">Akademik</option><option value="kegiatan">Kegiatan</option><option value="prestasi">Prestasi</option><option value="ppdb">PPDB</option></select></label>
+        </div>
+        <div class="news-grid" id="newsGrid">
+          <article class="news-card searchable-card" data-category="kegiatan" data-search="semangat pagi upacara bendera kegiatan siswa">
+            <button class="card-image-button" type="button" data-modal="news-1" aria-label="Buka berita Upacara Bendera"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=85" alt="Kegiatan upacara siswa" loading="lazy" data-fallback-label="Upacara" /></button>
+            <div class="news-copy"><div class="news-meta"><span>KEGIATAN</span><time datetime="2026-09-12">12 Sep 2026</time></div><h3>Semangat Pagi melalui Upacara Bendera</h3><p>Rangkaian kegiatan pembiasaan yang menanamkan kedisiplinan dan rasa kebersamaan.</p><button class="text-link" type="button" data-modal="news-1">Baca selengkapnya <span>→</span></button></div>
+          </article>
+          <article class="news-card searchable-card" data-category="akademik" data-search="literasi membaca perpustakaan akademik siswa">
+            <button class="card-image-button" type="button" data-modal="news-2" aria-label="Buka berita Program Literasi"><img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=900&q=85" alt="Kegiatan literasi" loading="lazy" data-fallback-label="Literasi" /></button>
+            <div class="news-copy"><div class="news-meta"><span>AKADEMIK</span><time datetime="2026-09-03">03 Sep 2026</time></div><h3>Program Literasi untuk Menumbuhkan Budaya Membaca</h3><p>Pembiasaan membaca menjadi bagian dari rutinitas belajar yang menyenangkan.</p><button class="text-link" type="button" data-modal="news-2">Baca selengkapnya <span>→</span></button></div>
+          </article>
+          <article class="news-card searchable-card" data-category="prestasi" data-search="prestasi lomba siswa penghargaan">
+            <button class="card-image-button" type="button" data-modal="news-3" aria-label="Buka berita Prestasi Siswa"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=85" alt="Prestasi siswa" loading="lazy" data-fallback-label="Prestasi" /></button>
+            <div class="news-copy"><div class="news-meta"><span>PRESTASI</span><time datetime="2026-08-28">28 Agu 2026</time></div><h3>Apresiasi untuk Siswa Berprestasi</h3><p>Dokumentasi penghargaan dan dukungan sekolah bagi siswa yang berkembang di berbagai bidang.</p><button class="text-link" type="button" data-modal="news-3">Baca selengkapnya <span>→</span></button></div>
+          </article>
+          <article class="news-card searchable-card" data-category="ppdb" data-search="ppdb pendaftaran peserta didik baru sekolah">
+            <button class="card-image-button" type="button" data-modal="news-4" aria-label="Buka berita Informasi PPDB"><img src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=900&q=85" alt="PPDB sekolah" loading="lazy" data-fallback-label="PPDB" /></button>
+            <div class="news-copy"><div class="news-meta"><span>PPDB</span><time datetime="2026-08-10">10 Agu 2026</time></div><h3>Informasi Awal Penerimaan Peserta Didik Baru</h3><p>Ringkasan tahapan, dokumen, dan jalur informasi untuk calon peserta didik.</p><button class="text-link" type="button" data-modal="news-4">Baca selengkapnya <span>→</span></button></div>
+          </article>
+        </div>
+        <div class="empty-state" id="newsEmpty" hidden>Berita yang sesuai belum ditemukan.</div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="pengumuman">
+      <div class="container">
+        <div class="section-heading"><div><span class="eyebrow">PENGUMUMAN</span><h2>Informasi penting untuk warga sekolah.</h2></div></div>
+        <div class="announcement-list">
+          <article class="announcement-item"><span class="announce-date"><b>18</b><small>OKT</small></span><div><span class="announcement-tag">Kegiatan</span><h3>Rapat orang tua / wali peserta didik</h3><p>Rapat bersama orang tua dan wali peserta didik untuk membahas program serta perkembangan kegiatan sekolah.</p></div><span class="announcement-arrow">→</span></article>
+          <article class="announcement-item"><span class="announce-date"><b>27</b><small>OKT</small></span><div><span class="announcement-tag">Ujian</span><h3>Jadwal asesmen dan persiapan siswa</h3><p>Peserta didik mengikuti asesmen dengan persiapan materi, perlengkapan, dan jadwal yang telah ditetapkan.</p></div><span class="announcement-arrow">→</span></article>
+          <article class="announcement-item"><span class="announce-date"><b>03</b><small>NOV</small></span><div><span class="announcement-tag">PPDB</span><h3>Informasi pendaftaran calon peserta didik</h3><p>Pantau pembaruan syarat, jalur, jadwal, serta dokumen yang dibutuhkan.</p></div><span class="announcement-arrow">→</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kegiatan">
+      <div class="container">
+        <div class="section-heading"><div><span class="eyebrow">KEGIATAN SEKOLAH</span><h2>Belajar, bergerak, berkarya, dan bertumbuh bersama.</h2></div></div>
+        <div class="activity-grid">
+          <button class="activity-card large" type="button" data-modal="activity-1"><img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=85" alt="Kegiatan belajar" loading="lazy" data-fallback-label="Kegiatan Belajar" /><span><b>Kegiatan Belajar</b><small>Pembelajaran aktif & kolaboratif</small></span></button>
+          <button class="activity-card" type="button" data-modal="activity-2"><img src="https://images.unsplash.com/photo-1546484959-fd8f8a5f4b0f?auto=format&fit=crop&w=800&q=85" alt="Kegiatan olahraga" loading="lazy" data-fallback-label="Olahraga" /><span><b>Olahraga</b><small>Kesehatan & sportivitas</small></span></button>
+          <button class="activity-card" type="button" data-modal="activity-3"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=85" alt="Kegiatan seni" loading="lazy" data-fallback-label="Seni" /><span><b>Seni</b><small>Kreativitas & ekspresi</small></span></button>
+          <button class="activity-card" type="button" data-modal="activity-4"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=85" alt="Kegiatan upacara" loading="lazy" data-fallback-label="Upacara" /><span><b>Upacara</b><small>Disiplin & kebersamaan</small></span></button>
+          <button class="activity-card" type="button" data-modal="activity-5"><img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=800&q=85" alt="Kegiatan keagamaan" loading="lazy" data-fallback-label="Keagamaan" /><span><b>Kegiatan Keagamaan</b><small>Karakter & pembiasaan</small></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="prestasi">
+      <div class="container">
+        <div class="section-heading"><div><span class="eyebrow">PRESTASI</span><h2>Ruang untuk mengapresiasi kerja keras siswa dan sekolah.</h2></div></div>
+        <div class="achievement-grid">
+          <article class="achievement-card"><div class="rank">01</div><div><span class="card-label">AKADEMIK</span><h3>Juara Lomba Cerdas Cermat</h3><p class="winner">Tim SDN LENGKONG WETAN 1</p><div class="achievement-meta"><span>Tingkat Kecamatan</span><span>2026</span></div></div><button class="text-link" type="button" data-modal="achievement-1">Lihat dokumentasi →</button></article>
+          <article class="achievement-card"><div class="rank">02</div><div><span class="card-label">OLAHRAGA</span><h3>Juara Turnamen Futsal</h3><p class="winner">Tim Futsal Siswa</p><div class="achievement-meta"><span>Tingkat Kecamatan</span><span>2026</span></div></div><button class="text-link" type="button" data-modal="achievement-2">Lihat dokumentasi →</button></article>
+          <article class="achievement-card"><div class="rank">03</div><div><span class="card-label">SENI</span><h3>Finalis Festival Seni Pelajar</h3><p class="winner">Perwakilan Siswa</p><div class="achievement-meta"><span>Tingkat Kota</span><span>2026</span></div></div><button class="text-link" type="button" data-modal="achievement-3">Lihat dokumentasi →</button></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section ppdb-section" id="ppdb">
+      <div class="container">
+        <div class="ppdb-hero">
+          <div><span class="eyebrow">PPDB</span><h2>Penerimaan Peserta Didik Baru</h2><p>Informasi penerimaan peserta didik baru mengikuti ketentuan dan jadwal resmi sekolah serta dinas pendidikan.</p></div>
+          <a class="btn btn-primary" href="#kontak">Tanya PPDB</a>
+        </div>
+        <div class="ppdb-grid">
+          <article class="ppdb-card"><span class="ppdb-number">01</span><h3>Persyaratan</h3><ul><li>Dokumen identitas peserta didik.</li><li>Dokumen orang tua / wali.</li><li>Dokumen pendukung sesuai jalur pendaftaran.</li></ul></article>
+          <article class="ppdb-card"><span class="ppdb-number">02</span><h3>Jadwal</h3><div class="timeline-mini"><div><b>Pengumuman</b><span>Sesuai jadwal resmi</span></div><div><b>Pendaftaran</b><span>Sesuai jadwal resmi</span></div><div><b>Verifikasi</b><span>Sesuai jadwal resmi</span></div><div><b>Pengumuman Hasil</b><span>Sesuai jadwal resmi</span></div></div></article>
+          <article class="ppdb-card"><span class="ppdb-number">03</span><h3>Alur Pendaftaran</h3><ol class="steps"><li>Siapkan dokumen</li><li>Isi formulir</li><li>Verifikasi berkas</li><li>Tunggu hasil seleksi</li></ol></article>
+          <article class="ppdb-card"><span class="ppdb-number">04</span><h3>Informasi Kontak</h3><p>Hubungi sekolah untuk memperoleh jadwal dan persyaratan terbaru.</p><a class="text-link" href="#kontak">Menuju kontak →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="kontak">
+      <div class="container">
+        <div class="section-heading"><div><span class="eyebrow">KONTAK</span><h2>Terhubung dengan SDN LENGKONG WETAN 1.</h2></div><p>Hubungi SDN LENGKONG WETAN 1 untuk informasi dan layanan sekolah.</p></div>
+        <div class="contact-grid">
+          <div class="contact-left">
+            <div class="contact-cards">
+              <article><span class="contact-icon">📍</span><div><span>Alamat</span><strong>Jl. Lengkong Wetan, Lengkong Wetan, Kec. Serpong, Kota Tangerang Selatan, Banten 15310</strong><small>Alamat sekolah</small></div></article>
+              <article><span class="contact-icon">☎</span><div><span>Telepon</span><strong>(021) 0000 0000</strong></div></article>
+              <article><span class="contact-icon">✉</span><div><span>Email</span><strong>info@sdnlengkongwetan1.sch.id</strong></div></article>
+              <article><span class="contact-icon">◷</span><div><span>Jam Operasional</span><strong>Senin–Jumat • 07.00–15.00</strong></div></article>
+            </div>
+            <div class="map-card" aria-label="Peta lokasi SDN LENGKONG WETAN 1">
+              <iframe class="map-frame" title="Lokasi SDN LENGKONG WETAN 1 di Google Maps" loading="lazy" src="https://www.google.com/maps?q=Jl.%20Lengkong%20Wetan,%20Lengkong%20Wetan,%20Kec.%20Serpong,%20Kota%20Tangerang%20Selatan,%20Banten%2015310&output=embed"></iframe>
+              <div class="map-overlay"><div><strong>Lokasi SDN LENGKONG WETAN 1</strong><span>Jl. Lengkong Wetan, Lengkong Wetan, Kec. Serpong, Kota Tangerang Selatan, Banten 15310</span></div><a class="btn btn-secondary" href="https://www.google.com/maps/search/?api=1&query=Jl.%20Lengkong%20Wetan,%20Lengkong%20Wetan,%20Kec.%20Serpong,%20Kota%20Tangerang%20Selatan,%20Banten%2015310" target="_blank" rel="noopener noreferrer">Buka di Google Maps</a></div>
+            </div>
+          </div>
+          <form class="contact-form" id="contactForm" novalidate>
+            <span class="eyebrow">FORM KONTAK</span><h3>Kirim pesan ke sekolah</h3><p>Isi form di bawah. Untuk demo website, pesan akan ditampilkan sebagai notifikasi sukses tanpa mengirim ke server.</p>
+            <div class="form-grid"><div class="field"><label for="name">Nama <span>*</span></label><input id="name" name="name" type="text" required minlength="3" placeholder="Nama lengkap" /><small class="field-error" data-error-for="name"></small></div><div class="field"><label for="email">Email <span>*</span></label><input id="email" name="email" type="email" required placeholder="nama@email.com" /><small class="field-error" data-error-for="email"></small></div></div>
+            <div class="field"><label for="topic">Topik <span>*</span></label><select id="topic" name="topic" required><option value="">Pilih topik</option><option>Informasi sekolah</option><option>PPDB</option><option>Kerja sama</option><option>Alumni</option><option>Lainnya</option></select><small class="field-error" data-error-for="topic"></small></div>
+            <div class="field"><label for="message">Pesan <span>*</span></label><textarea id="message" name="message" rows="6" required minlength="10" placeholder="Tulis pesan..." ></textarea><small class="field-error" data-error-for="message"></small></div>
+            <button class="btn btn-primary full" type="submit">Kirim Pesan</button>
+            <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-top footer-top-school">
+      <div class="footer-brand"><div class="brand-mark"><img src="assets/logo-school2.png" alt="Logo SDN LENGKONG WETAN 1"></div><div><h3>SDN LENGKONG WETAN 1</h3><p>Website resmi sekolah sebagai pusat informasi pendidikan, kegiatan, prestasi, dan layanan bagi warga sekolah serta masyarakat.</p></div></div>
+      <div class="footer-col"><h4>Alamat Sekolah</h4><span>Jl. Lengkong Wetan, Lengkong Wetan</span><span>Kec. Serpong, Kota Tangerang Selatan</span><span>Banten 15310</span></div>
+      <div class="footer-col"><h4>Kontak</h4><span>Kepala Sekolah</span><strong>Tarsono, S.Pd., M.M.</strong><span>Senin–Jumat • 07.00–15.00</span><a href="#kontak">Lihat informasi kontak →</a></div>
+      <div class="footer-col"><h4>Lokasi</h4><a href="https://www.google.com/maps/search/?api=1&query=Jl.%20Lengkong%20Wetan,%20Lengkong%20Wetan,%20Kec.%20Serpong,%20Kota%20Tangerang%20Selatan,%20Banten%2015310" target="_blank" rel="noopener noreferrer">Buka Google Maps ↗</a><span>Lokasi sekolah sesuai alamat resmi.</span></div>
+    </div>
+    <div class="container footer-bottom"><span>© <span id="currentYear"></span> SDN LENGKONG WETAN 1. Semua hak dilindungi.</span><span>Kota Tangerang Selatan • Banten</span></div>
+  </footer>
+
+  <button class="back-top" id="backTop" type="button" aria-label="Kembali ke atas">↑</button>
+
+  <div class="modal" id="contentModal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Tutup">×</button>
+      <div id="modalContent"></div>
     </div>
   </div>
 
-  <header id="site-header" class="site-header">
-    <div class="container navbar">
-      <a class="brand" href="#home" aria-label="Beranda sekolah">
-        <span class="brand-mark"><img src="assets/logo-school.png" alt="Logo SDN Lengkong Wetan 01"></span>
-        <span class="brand-copy"><strong>SDN LENGKONG WETAN 01</strong><small>Official School Website</small></span>
-      </a>
-      <button id="mobileMenuBtn" class="icon-btn mobile-menu-btn" aria-expanded="false" aria-label="Buka menu">☰</button>
-      <nav id="mainNav" class="main-nav" aria-label="Navigasi utama">
-        <a href="#about" aria-label="Profil Sekolah">Profil Sekolah</a>
-        <div class="nav-item has-dropdown"><a href="#news">Berita <span>⌄</span></a><div class="dropdown"><a href="#news">Berita Sekolah</a><a href="#announcements">Pengumuman</a><a href="#agenda">Agenda Sekolah</a><a href="#news">Artikel</a></div></div>
-        <div class="nav-item has-dropdown"><a href="#finance">Keuangan <span>⌄</span></a><div class="dropdown"><a href="#finance">Transparansi Keuangan</a><a href="#finance">Rencana Anggaran</a><a href="#finance">Laporan Keuangan</a><a href="#finance">Penggunaan Dana</a></div></div>
-        <a href="#extracurriculars">Ekstrakurikuler</a><a href="#achievements">Prestasi</a><a href="#alumni">Profil Alumni</a><a href="#contact">Kontak</a>
-        <div class="nav-tools"><button id="langBtn" class="tool-btn" title="Ubah bahasa">🇮🇩 <span id="langLabel">ID</span></button><button id="themeBtn" class="tool-btn" title="Ubah tema">☾</button></div>
-      </nav>
-    </div>
-  </header>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <main id="pageRoot"></main>
-
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div><div class="footer-brand">SDN LENGKONG WETAN 01</div><p id="footerAbout">Sekolah dasar yang berkomitmen membangun generasi cerdas, berkarakter, kreatif, dan berprestasi.</p></div>
-      <div><h4 id="footerNavTitle">Navigasi</h4><div class="footer-links"><a href="#about">Profil</a><a href="#news">Berita</a><a href="#achievements">Prestasi</a><a href="#extracurriculars">Ekstrakurikuler</a><a href="#alumni">Alumni</a><a href="#ppdb">PPDB</a></div></div>
-      <div><h4 id="footerInfoTitle">Informasi</h4><div class="footer-links"><span>Jl. Kelurahan Lengkong Wetan, Kec. Serpong</span><span>Kota Tangerang Selatan, Banten</span><span>NPSN: 20602996</span><span>021-5389741</span><a href="mailto:sdnegerilengkongwetan01@gmail.com">sdnegerilengkongwetan01@gmail.com</a></div></div>
-      <div><h4 id="footerSocialTitle">Social Media</h4><div class="socials"><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a><a href="https://youtube.com" target="_blank" rel="noreferrer">YouTube</a><a href="https://tiktok.com" target="_blank" rel="noreferrer">TikTok</a></div></div>
-    </div>
-    <div class="container footer-bottom"><span id="copyright">Copyright © 2026 SDN Lengkong Wetan 01</span><span>Official School Information Portal</span></div>
-  </footer>
-  <button id="backTop" class="back-top" aria-label="Kembali ke atas">↑</button>
-  <div id="modalRoot"></div>
   <script src="script.js"></script>
 </body>
 </html>
