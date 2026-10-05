@@ -1,144 +1,276 @@
-const APP = {
-  route: location.hash.replace('#','') || 'home',
-  lang: localStorage.getItem('schoolLang') || 'id',
-  theme: localStorage.getItem('schoolTheme') || 'light',
-  pageSize: 6,
-  newsPage: 1,
-  teacherQuery: '',
-  facilityCategory: 'Semua',
-  extracurricularCategory: 'Semua',
-  achievementYear: 'Semua',
-  alumniQuery: ''
-};
+(function () {
+  'use strict';
 
-const img = (id, w=900, q=82) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=${q}`;
-const DATA = {
-  school:{name:'SDN Lengkong Wetan 01',short:'SDN LENGKONG WETAN 01',founded:1998,students:1248,teachers:72,staff:28,classes:36,accreditation:'A',programs:6,alumni:8450,
-    address:'Jl. Pendidikan No. 1, Jakarta Selatan, Indonesia',phone:'(021) 555-0135',email:'info@Website resmi sekolah'},
-  news:[
-    ['Pemilihan Ketua OSIS 2026 Berlangsung Demokratis','Kegiatan','12 Sep 2026','OSIS SDN Lengkong Wetan 01','Pemilihan ketua OSIS periode 2026/2027 menjadi ruang belajar demokrasi bagi seluruh siswa.'],
-    ['Tim Robotik Raih Juara Nasional','Prestasi','05 Sep 2026','Humas Sekolah','Tim robotik meraih juara 2 pada kompetisi tingkat nasional setelah melalui rangkaian seleksi.'],
-    ['Workshop Literasi Digital untuk Orang Tua','Kegiatan','28 Agu 2026','Komite Sekolah','Sekolah mengadakan sesi edukasi keamanan digital dan pendampingan penggunaan teknologi bagi keluarga.'],
-    ['Gerakan Sekolah Hijau Dimulai','Lingkungan','21 Agu 2026','Tim Adiwiyata','Siswa dan guru menanam 300 bibit serta menata ulang area taman sekolah.'],
-    ['Kunjungan Edukasi ke Pusat Riset Teknologi','Akademik','14 Agu 2026','Waka Kurikulum','Siswa kelas XI mengikuti kunjungan untuk mengenal profesi dan riset teknologi.'],
-    ['Perpustakaan Digital Resmi Diluncurkan','Akademik','08 Agu 2026','Perpustakaan','Koleksi digital, peminjaman mandiri, dan katalog daring kini tersedia untuk warga sekolah.'],
-    ['Peringatan HUT Kemerdekaan ke-81','Event','17 Agu 2026','Panitia Sekolah','Rangkaian lomba dan upacara kemerdekaan memperkuat semangat kolaborasi antarkelas.'],
-    ['Seminar Karier: Kuliah dan Dunia Kerja','Artikel','01 Agu 2026','BK','Alumni dari berbagai bidang berbagi pengalaman tentang pilihan studi dan karier.'],
-    ['Program Jumat Sehat Kembali Berjalan','Kegiatan','25 Jul 2026','UKS','Jumat sehat menggabungkan aktivitas fisik, edukasi kesehatan, dan sarapan bergizi.'],
-    ['Pendaftaran Ekstrakurikuler Semester Gasal','Informasi Sekolah','18 Jul 2026','Kesiswaan','Siswa dapat memilih kegiatan sesuai minat dan bakat melalui portal pendaftaran.'],
-    ['Pameran Karya Siswa Digelar','Kreativitas','09 Jul 2026','Kurikulum','Karya seni, desain, sains, dan teknologi dipamerkan dalam agenda tahunan sekolah.'],
-    ['Masa Pengenalan Lingkungan Sekolah 2026','Informasi Sekolah','03 Jul 2026','Panitia MPLS','MPLS menjadi ruang adaptasi dan pengenalan budaya belajar bagi peserta didik baru.']
-  ],
-  announcements:[
-    ['Pengumuman Jadwal Penilaian Tengah Semester','Akademik','20 Sep 2026','Penting','PTS dilaksanakan 05–09 Oktober 2026 sesuai jadwal masing-masing jenjang.'],
-    ['Pembayaran Kegiatan Study Tour','Administrasi','16 Sep 2026','Info','Batas pembayaran tahap kedua adalah 30 September 2026.'],
-    ['Perubahan Jam Layanan Tata Usaha','Administrasi','12 Sep 2026','Info','Layanan administrasi dibuka pukul 08.00–15.00 mulai Senin.'],
-    ['Simulasi Evakuasi Bencana','Kesiswaan','03 Sep 2026','Penting','Seluruh warga sekolah mengikuti simulasi evakuasi pada pukul 09.30.'],
-    ['Jadwal Pengambilan Rapor','Akademik','28 Agu 2026','Info','Pengambilan rapor dilakukan bersama orang tua/wali sesuai jadwal kelas.'],
-    ['Program Beasiswa Prestasi','Kesiswaan','15 Agu 2026','Penting','Pendaftaran beasiswa dibuka untuk siswa dengan capaian akademik dan non-akademik.']
-  ],
-  teachers:Array.from({length:12},(_,i)=>({name:['Tarsono, S.Pd., M.M.','Dewi Lestari, S.Pd.','Rizky Pratama, S.Kom.','Siti Rahmawati, S.Pd.','Andi Setiawan, M.Pd.','Maya Kartika, S.Si.','Budi Santoso, S.Pd.','Nadia Putri, M.Pd.','Hendra Wijaya, S.Pd.','Rina Marlina, S.Pd.','Fajar Nugroho, S.Pd.','Lina Kurniasih, M.Psi.'][i],nip:`198${i+10}1020 200${i} 1 00${i+1}`,role:i<2?'Pimpinan':i%4===0?'Wali Kelas':'Guru Mata Pelajaran',subject:['Bahasa Indonesia','Bahasa Inggris','Informatika','Matematika','Fisika','Kimia','PJOK','Biologi','Sejarah','Seni Budaya','Ekonomi','Bimbingan Konseling'][i],email:`guru${i+1}@Website resmi sekolah`,img:img(['photo-1534528741775-53994a69daeb','photo-1544005313-94ddf0286df2','photo-1507003211169-0a1dd7228f2d','photo-1494790108377-be9c29b29330','photo-1500648767791-00dcc994a43e','photo-1517841905240-472988babdf9'][i%6],700)})),
-  facilities:[
-    ['Ruang Kelas','Pembelajaran','photo-1523240795612-9a054b0db644'],['Laboratorium Komputer','Teknologi','photo-1516321318423-f06f85e504b3'],['Laboratorium IPA','Sains','photo-1532094349884-543bc11b234d'],['Perpustakaan','Literasi','photo-1521587760476-6c12a4b040da'],['Lapangan Olahraga','Olahraga','photo-1461896836934-ffe607ba8211'],['Aula','Kegiatan','photo-1511578314322-379afb476865'],['Ruang Guru','Administrasi','photo-1497366754035-f200968a6e72'],['Ruang UKS','Kesehatan','photo-1584982751601-97dcc096659c'],['Kantin','Kuliner','photo-1552566626-52f8b828add9'],['Masjid','Keagamaan','photo-1564769625392-651b9ca2a9a0'],['Area Parkir','Fasilitas','photo-1506521781263-d8422e82f27a'],['Studio Kreatif','Kreativitas','photo-1516321165247-4aa89a48be28']
-  ],
-  extracurriculars:[
-    ['Futsal','Olahraga','Latihan teknik dan strategi kompetitif.','Pak Budi Santoso','Selasa & Kamis, 15.30','Lapangan Barat',34],['Basket','Olahraga','Pembinaan skill dasar hingga kompetisi.','Pak Andi Setiawan','Rabu & Jumat, 15.30','Lapangan Basket',28],['Voli','Olahraga','Pengembangan teknik dan teamwork.','Ibu Dewi Lestari','Senin & Kamis, 15.30','Lapangan Utama',24],['Paskibra','Kepemimpinan','Disiplin, baris-berbaris, dan karakter.','Pak Hendra Wijaya','Selasa, 15.30','Lapangan Upacara',30],['Pramuka','Kepemimpinan','Kemandirian, kepemimpinan, dan kegiatan alam.','Ibu Nadia Putri','Jumat, 14.30','Bumi Perkemahan',42],['PMR','Kesehatan','Pertolongan pertama dan kepedulian sosial.','Ibu Maya Kartika','Rabu, 14.30','UKS',21],['Rohis','Keagamaan','Kajian, sosial, dan penguatan karakter.','Ibu Siti Rahmawati','Jumat, 15.00','Ruang Ibadah',38],['English Club','Bahasa','Conversation, public speaking, dan debate.','Ibu Rina Marlina','Kamis, 15.00','Lab Bahasa',26],['Coding Club','Teknologi','Web, programming, dan project digital.','Pak Rizky Pratama','Sabtu, 09.00','Lab Komputer',31],['Robotik','Teknologi','Elektronika, sensor, dan robot competition.','Pak Fajar Nugroho','Sabtu, 10.00','Lab Robotik',18],['Musik','Seni','Band, vokal, dan pertunjukan panggung.','Ibu Lina Kurniasih','Rabu, 15.00','Studio Musik',22],['Jurnalistik','Kreativitas','Menulis, fotografi, dan produksi berita sekolah.','Ibu Siti Rahmawati','Jumat, 15.00','Ruang Media',17]
-  ],
-  achievements:Array.from({length:12},(_,i)=>({name:['Juara 2 National Robotics Challenge','Juara 1 Olimpiade Matematika Provinsi','Juara 3 Debat Bahasa Inggris Nasional','Medali Emas Kejuaraan Atletik Pelajar','Juara 2 Kompetisi Sains Biologi','Juara 1 Festival Tari Pelajar','Juara 3 Lomba Karya Tulis Ilmiah','Juara 2 Futsal Antar-SMA','Finalis Startup Pelajar Indonesia','Juara 1 Fotografi Pelajar','Juara 3 Cipta Puisi Nasional','Juara 2 Paduan Suara Kota'][i],student:['Tim Robotik','Nabila Putri','English Debate Team','Raka Pradana','Tim Sains','Sanggar Tari Nusantara','Dimas & Tim','Tim Futsal','Alya & Tim','Rizky Aditya','Salsa Ramadhani','Gita Choir'][i],level:['Nasional','Provinsi','Nasional','Kota','Provinsi','Nasional','Nasional','Kota','Nasional','Provinsi','Nasional','Kota'][i],year:2026-i%3,category:i%2?'Non-Akademik':'Akademik',rank:['Juara 2','Juara 1','Juara 3','Medali Emas'][i%4],img:img(['photo-1531482615713-2afd69097998','photo-1503676382389-4809596d5290','photo-1516321318423-f06f85e504b3','photo-1492684223066-81342ee5ff30'][i%4],800)})),
-  alumni:Array.from({length:12},(_,i)=>({name:['Nadia Prameswari','Farhan Akbar','Dito Mahendra','Aulia Salsabila','Rafi Kurniawan','Citra Ayu','Bagas Ramadhan','Fikri Adnan','Mira Kusuma','Ilham Prakoso','Salsa Nabila','Kevin Wijaya'][i],year:2010+i,job:['Software Engineer','Dokter','Arsitek','Dosen','Entrepreneur','Data Analyst','Desainer Produk','Jurnalis','Psikolog','Pilot','Peneliti','Content Creator'][i],uni:['UI','UGM','ITB','UNJ','BINUS','IPB','ITS','UNPAD','UI','Trisakti','UNAIR','Telkom University'][i],achievement:['Memimpin tim produk startup','Dokter spesialis','Desain gedung berkelanjutan','Peraih hibah riset','Membangun bisnis kuliner','Analitik data publik','Penghargaan desain nasional','Liputan investigasi','Praktik psikologi komunitas','Kapten penerbangan','Publikasi riset internasional','Kreator edukasi digital'][i],img:img(['photo-1494790108377-be9c29b29330','photo-1500648767791-00dcc994a43e','photo-1506794778202-cad84cf45f1d','photo-1531123897727-8f129e1688ce'][i%4],700)})),
-  events:[
-    ['Upacara Senin','2026-10-05','07:00','Lapangan Utama','Upacara bendera dan pengarahan mingguan.'],['Workshop AI untuk Pelajar','2026-10-08','13:00','Aula Utama','Pengenalan AI generatif dan etika penggunaannya.'],['PTS Semester Gasal','2026-10-05','07:30','Ruang Kelas','Penilaian Tengah Semester sesuai jadwal.'],['Class Meeting','2026-10-19','08:00','Area Olahraga','Kompetisi antarkelas setelah evaluasi akademik.'],['Seminar Alumni','2026-10-24','09:00','Aula Utama','Berbagi pengalaman kuliah dan dunia kerja.'],['Penerimaan Peserta Didik Baru','2026-11-02','08:00','Ruang PPDB','Layanan informasi dan pendaftaran peserta didik baru.']
-  ],
-  finance:[{year:2024,income:4200,spend:3980,education:1800,facilities:980,student:520,other:680},{year:2025,income:4650,spend:4310,education:1950,facilities:1100,student:560,other:700},{year:2026,income:5000,spend:4520,education:2100,facilities:1150,student:590,other:680}],
-  searchIndex:[]
-};
-const T={
- id:{about:'Tentang Sekolah',history:'Sejarah',vision:'Visi & Misi',principal:'Kepala Sekolah',teachers:'Guru & Tenaga Kependidikan',facilities:'Fasilitas',news:'Berita Sekolah',announcements:'Pengumuman',agenda:'Agenda Sekolah',finance:'Transparansi Keuangan',extracurriculars:'Ekstrakurikuler',achievements:'Prestasi',alumni:'Profil Alumni',ppdb:'PPDB',contact:'Kontak',search:'Apa yang ingin Anda cari?',find:'Cari',read:'Baca Selengkapnya',view:'Lihat Detail',all:'Semua',back:'Kembali',empty:'Data yang Anda cari tidak ditemukan.'},
- en:{about:'About School',history:'History',vision:'Vision & Mission',principal:'Principal',teachers:'Teachers & Staff',facilities:'Facilities',news:'School News',announcements:'Announcements',agenda:'School Agenda',finance:'Financial Transparency',extracurriculars:'Extracurriculars',achievements:'Achievements',alumni:'Alumni Profile',ppdb:'Admissions',contact:'Contact',search:'What are you looking for?',find:'Search',read:'Read More',view:'View Detail',all:'All',back:'Back',empty:'No matching data found.'}
-};
-function t(k){return T[APP.lang][k]||T.id[k]||k}
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
-function initSearch(){
-  DATA.searchIndex=[];
-  DATA.news.forEach((n,i)=>DATA.searchIndex.push({cat:'Berita',title:n[0],desc:n[4],href:'#news?item='+i}));
-  DATA.announcements.forEach((n,i)=>DATA.searchIndex.push({cat:'Pengumuman',title:n[0],desc:n[4],href:'#announcements?item='+i}));
-  DATA.teachers.forEach((x,i)=>DATA.searchIndex.push({cat:'Guru',title:x.name,desc:`${x.subject} · ${x.role}`,href:'#teachers?item='+i}));
-  DATA.facilities.forEach((x,i)=>DATA.searchIndex.push({cat:'Fasilitas',title:x[0],desc:x[1],href:'#facilities?item='+i}));
-  DATA.extracurriculars.forEach((x,i)=>DATA.searchIndex.push({cat:'Ekstrakurikuler',title:x[0],desc:x[2],href:'#extracurriculars?item='+i}));
-  DATA.achievements.forEach((x,i)=>DATA.searchIndex.push({cat:'Prestasi',title:x.name,desc:`${x.rank} · ${x.level}`,href:'#achievements?item='+i}));
-}
+  const modal = $('#contentModal');
+  const modalContent = $('#modalContent');
+  const toast = $('#toast');
+  const backTop = $('#backTop');
+  const menuToggle = $('.menu-toggle');
+  const navMenu = $('#main-menu');
+  const currentYear = $('#currentYear');
 
-function layout(title,kicker,content){return `<section class="hero-page ${APP.route==='about'?'profile-photo-hero':''}"><div class="container"><div class="breadcrumbs">Home / ${title}</div><div class="kicker">${kicker}</div><h1>${title}</h1><p>${content||''}</p></div></section>`}
-function imgTag(url,alt='Foto'){return `<img src="${url}" alt="${alt}" loading="lazy">`}
-function home(){return `<section class="hero"><div class="container"><span class="eyebrow">✦ ${APP.lang==='id'?'Portal Informasi Resmi Sekolah':'Official School Information Portal'}</span><h1>${DATA.school.name}</h1><p>${APP.lang==='id'?'Membangun Generasi Cerdas, Berkarakter, Kreatif, dan Berprestasi':'Building a generation that is intelligent, character-driven, creative, and accomplished.'}</p><form id="heroSearch" class="search-shell"><input id="heroSearchInput" placeholder="${t('search')}" aria-label="Search"><button class="btn btn-gold" type="submit">${t('find')}</button></form><div class="notice-strip"><span class="badge">● ${APP.lang==='id'?'Informasi terbaru diperbarui setiap saat':'Information is updated regularly'}</span></div></div></section><section class="section"><div class="container grid-2 reveal"><div><div class="kicker">${t('about')}</div><div class="section-head" style="margin-bottom:12px"><div><h2>${APP.lang==='id'?'Sekolah yang bertumbuh bersama komunitas':'A school growing with its community'}</h2></div></div><p>${APP.lang==='id'?'SDN Lengkong Wetan 01 berkomitmen menghadirkan lingkungan belajar yang aman, inklusif, adaptif terhadap teknologi, dan berorientasi pada pengembangan potensi siswa.':'SDN Lengkong Wetan 01 is committed to a safe, inclusive, technology-aware learning environment focused on student potential.'}</p><ul class="list-clean"><li>Akreditasi ${DATA.school.accreditation}</li><li>${DATA.school.students.toLocaleString()} siswa dan ${DATA.school.teachers} guru</li><li>${DATA.school.programs} program unggulan lintas minat</li><li>Ekosistem kegiatan akademik dan non-akademik yang aktif</li></ul><div style="margin-top:18px"><a class="btn btn-primary" href="#about">${t('read')}</a></div></div><div class="image-card">${imgTag(img('photo-1564981797816-1043664bf78d',1000),'Kegiatan sekolah')}<div class="caption">Komunitas belajar, kegiatan, dan fasilitas dirancang untuk mendukung pengalaman pendidikan yang seimbang.</div></div></div></section><section class="section" style="padding-top:0"><div class="container"><div class="section-head"><div><div class="kicker">${APP.lang==='id'?'Data Sekolah':'School at a Glance'}</div><h2>${APP.lang==='id'?'Dalam angka':'In numbers'}</h2></div></div><div class="stats-grid">${[['Tahun Berdiri',DATA.school.founded],['Jumlah Siswa',DATA.school.students.toLocaleString()],['Jumlah Guru',DATA.school.teachers],['Tenaga Kependidikan',DATA.school.staff],['Jumlah Kelas',DATA.school.classes],['Akreditasi',DATA.school.accreditation],['Program Keahlian',DATA.school.programs],['Alumni',DATA.school.alumni.toLocaleString()]].map(x=>`<div class="stat-card reveal"><div class="num" data-counter="${String(x[1]).replace(/\D/g,'')||0}">${x[1]}</div><small>${x[0]}</small></div>`).join('')}</div></div></section><section class="section"><div class="container grid-2 reveal"><div class="image-card">${imgTag(img('photo-1541339907198-e08756dedf3f',1000),'Kepala sekolah')}<div class="caption">${APP.lang==='id'?'Sambutan kepala sekolah':'Principal message'}</div></div><div><div class="kicker">${t('principal')}</div><div class="section-head" style="margin-bottom:10px"><div><h2>Tarsono, S.Pd., M.M.</h2><p>Kepala Sekolah</p></div></div><div class="quote">“Pendidikan terbaik tumbuh ketika sekolah, keluarga, dan masyarakat berjalan dalam satu tujuan.”</div><p style="color:var(--muted)">${APP.lang==='id'?'Kami mengajak seluruh warga sekolah untuk terus belajar, berkolaborasi, dan memberi dampak positif bagi lingkungan sekitar.':'We invite every member of our school community to keep learning, collaborating, and creating positive impact.'}</p><a class="btn btn-ghost" href="#principal">${t('view')}</a></div></div></section><section class="section" style="padding-top:10px"><div class="container"><div class="section-head"><div><div class="kicker">Berita</div><h2>Berita Terbaru</h2></div><a class="btn btn-ghost" href="#news">Lihat Semua</a></div><div class="card-grid">${DATA.news.slice(0,3).map((n,i)=>newsCard(n,i)).join('')}</div></div></section>`}
-function newsCard(n,i){return `<article class="card reveal"><div class="card-media">${imgTag(img(['photo-1509062522246-3755977927d7','photo-1541178735493-479c1a27ed24','photo-1519389950473-47ba0277781c'][i%3],800),n[0])}</div><div class="card-body"><div class="meta"><span class="badge">${n[1]}</span><span>${n[2]}</span></div><h3>${n[0]}</h3><p>${n[4]}</p><div class="card-actions"><a class="btn btn-primary" href="#news?item=${i}">${t('read')}</a></div></div></article>`}
-function about(){
-const teachersPreview=DATA.teachers.map(x=>`<article class="person-card card reveal"><img src="${x.img}" alt="${x.name}" loading="lazy"><div class="card-body"><div class="person-role">${x.role}</div><h3>${x.name}</h3><p>${x.subject}</p></div></article>`).join('');
-const facilitiesPreview=DATA.facilities.map((x,i)=>`<article class="gallery-item reveal" data-gallery="${i}">${imgTag(img(x[2],900),x[0])}<div class="overlay">${x[0]} · ${x[1]}</div></article>`).join('');
-return `${layout(t('about'),'PROFIL SEKOLAH',APP.lang==='id'?'Informasi lengkap mengenai identitas, perjalanan, kepemimpinan, organisasi, sumber daya manusia, fasilitas, akreditasi, dan data utama SDN Lengkong Wetan 01.':'Complete information about the school identity, history, leadership, organization, human resources, facilities, accreditation, and key data.')} 
-<section class="section" id="tentang"><div class="container grid-2 reveal"><div><div class="kicker">Tentang Sekolah</div><h2>Belajar dengan karakter, berkarya dengan dampak.</h2><p>SDN Lengkong Wetan 01 hadir sebagai lingkungan pendidikan yang mendorong perkembangan pengetahuan, karakter, kreativitas, keterampilan sosial, dan kemampuan beradaptasi dengan perubahan.</p><p>Sekolah membuka ruang kolaborasi antara guru, siswa, orang tua, alumni, serta masyarakat agar proses pendidikan terasa relevan, aman, inklusif, dan mendukung potensi setiap peserta didik.</p><div class="pill-tabs">${['Integritas','Disiplin','Kreativitas','Kolaborasi','Tanggung Jawab','Prestasi'].map(x=>`<span class="pill">${x}</span>`).join('')}</div></div><div class="image-card">${imgTag(img('photo-1564981797816-1043664bf78d',1200),'Lingkungan sekolah')}<div class="caption">Lingkungan belajar dan kegiatan sekolah dirancang untuk mendukung perkembangan akademik dan karakter peserta didik.</div></div></div></section>
-<section class="section" id="sejarah"><div class="container soft-card reveal"><div class="kicker">Sejarah</div><h2>Perjalanan SDN Lengkong Wetan 01</h2><p style="color:var(--muted)">Berikut adalah ringkasan perjalanan sekolah yang digunakan sebagai konten profil pada prototipe ini.</p><div class="timeline">${[['1998','Sekolah berdiri dan menerima angkatan pertama.'],['2004','Pengembangan fasilitas pembelajaran dan program literasi mulai diperluas.'],['2011','Program pembinaan prestasi akademik dan non-akademik semakin aktif.'],['2016','Pusat sumber belajar dan perpustakaan sekolah diperbarui.'],['2020','Pembelajaran dan layanan komunikasi sekolah beradaptasi dengan sistem digital.'],['2024','Penguatan program karakter, teknologi, kreativitas, dan kolaborasi alumni.'],['2026','Portal informasi sekolah dikembangkan secara lebih terintegrasi.']].map(x=>`<div class="timeline-item"><div class="year">${x[0]}</div><div>${x[1]}</div></div>`).join('')}</div></div></section>
-<section class="section" id="visi-misi"><div class="container grid-2"><div class="soft-card reveal"><div class="kicker">Visi</div><h2>Menjadi sekolah yang unggul dalam akademik, karakter, kreativitas, dan teknologi.</h2><p style="color:var(--muted)">Visi ini menjadi arah bersama dalam membangun budaya belajar yang positif dan berkelanjutan.</p></div><div class="soft-card reveal"><div class="kicker">Misi</div><ul class="list-clean"><li>Mengembangkan pembelajaran aktif dan berpusat pada siswa.</li><li>Membentuk karakter melalui budaya disiplin, tanggung jawab, dan keteladanan.</li><li>Mendorong literasi digital, kreativitas, dan inovasi.</li><li>Memfasilitasi prestasi akademik maupun non-akademik.</li><li>Memperkuat kolaborasi dengan orang tua, alumni, dan masyarakat.</li></ul></div></div></section>
-<section class="section" id="sambutan-kepala"><div class="container grid-2 reveal"><div class="image-card">${imgTag(img('photo-1541339907198-e08756dedf3f',1200),'Kepala sekolah')}<div class="caption">Sambutan kepala sekolah.</div></div><div><div class="kicker">Sambutan Kepala Sekolah</div><h2>Tarsono, S.Pd., M.M.</h2><p><strong>Kepala Sekolah</strong></p><div class="quote">“Pendidikan terbaik tumbuh ketika sekolah, keluarga, dan masyarakat berjalan dalam satu tujuan.”</div><p style="color:var(--muted)">Kami mengajak seluruh warga sekolah untuk terus belajar, berkolaborasi, menjaga karakter, dan memberi dampak positif bagi lingkungan sekitar.</p></div></div></section>
-<section class="section" id="struktur"><div class="container"><div class="section-head"><div><div class="kicker">Organisasi</div><h2>Struktur Organisasi</h2></div></div><div class="grid-3"><div class="soft-card reveal"><div class="kicker">Kepemimpinan</div><h3>Kepala Sekolah</h3><p style="color:var(--muted)">Tarsono, S.Pd., M.M.</p></div><div class="soft-card reveal"><div class="kicker">Manajemen</div><h3>Koordinator & Wakil Bidang</h3><p style="color:var(--muted)">Kurikulum · Kesiswaan · Sarana Prasarana · Hubungan Masyarakat</p></div><div class="soft-card reveal"><div class="kicker">Pendukung</div><h3>Tenaga Kependidikan</h3><p style="color:var(--muted)">Administrasi, perpustakaan, laboratorium, UKS, dan layanan pendukung sekolah.</p></div></div><div class="soft-card reveal" style="margin-top:18px"><div class="kicker">Alur Organisasi</div><div class="timeline"><div class="timeline-item"><div class="year">01</div><div>Kepala Sekolah memimpin arah strategis dan budaya sekolah.</div></div><div class="timeline-item"><div class="year">02</div><div>Koordinator bidang mengelola program sesuai tanggung jawab masing-masing.</div></div><div class="timeline-item"><div class="year">03</div><div>Guru dan wali kelas melaksanakan proses pembelajaran serta pendampingan siswa.</div></div><div class="timeline-item"><div class="year">04</div><div>Tenaga kependidikan memastikan layanan administrasi dan fasilitas berjalan baik.</div></div></div></div></div></section>
-<section class="section" id="guru-staf"><div class="container"><div class="section-head"><div><div class="kicker">Sumber Daya Manusia</div><h2>Guru & Tenaga Kependidikan</h2><p style="color:var(--muted)">Tim pendidik dan tenaga kependidikan yang mendukung kegiatan belajar, layanan siswa, dan pengelolaan sekolah.</p></div></div><div class="person-grid">${teachersPreview}</div></div></section>
-<section class="section" id="fasilitas"><div class="container"><div class="section-head"><div><div class="kicker">Sarana Prasarana</div><h2>Fasilitas Sekolah</h2><p style="color:var(--muted)">Beberapa fasilitas utama yang mendukung pembelajaran dan kegiatan warga sekolah.</p></div></div><div class="gallery-grid">${facilitiesPreview}</div></div></section>
-<section class="section" id="akreditasi"><div class="container grid-2"><div class="soft-card reveal"><div class="kicker">Akreditasi</div><h2>${DATA.school.accreditation}</h2><p style="color:var(--muted)">Status akreditasi pada prototipe ini ditampilkan sebagai contoh data dan dapat disesuaikan dengan dokumen resmi sekolah.</p><div class="notice">Gunakan dokumen dan sumber resmi sekolah sebagai rujukan final sebelum data dipublikasikan.</div></div><div class="soft-card reveal"><div class="kicker">Komitmen Mutu</div><ul class="list-clean"><li>Perbaikan mutu pembelajaran secara berkelanjutan.</li><li>Penguatan budaya sekolah yang aman dan inklusif.</li><li>Pengembangan kompetensi guru dan tenaga kependidikan.</li><li>Pengelolaan fasilitas dan layanan yang mendukung siswa.</li></ul></div></div></section>
-<section class="section tight" id="data-sekolah"><div class="container"><div class="section-head"><div><div class="kicker">Data Sekolah</div><h2>Informasi Utama</h2></div></div><div class="stats-grid">${[['Tahun Berdiri',DATA.school.founded],['Jumlah Siswa',DATA.school.students.toLocaleString()],['Jumlah Guru',DATA.school.teachers],['Tenaga Kependidikan',DATA.school.staff],['Jumlah Kelas',DATA.school.classes],['Akreditasi',DATA.school.accreditation],['Program',DATA.school.programs],['Alumni',DATA.school.alumni.toLocaleString()]].map(x=>`<div class="stat-card reveal"><div class="num">${x[1]}</div><small>${x[0]}</small></div>`).join('')}</div><div class="table-wrap" style="margin-top:20px"><table><tbody>${[['Nama Sekolah',DATA.school.name],['NPSN','20602996'],['Alamat','Jl. Kelurahan Lengkong Wetan, Kec. Serpong, Kota Tangerang Selatan, Banten'],['Telepon','021-5389741'],['Email','sdnegerilengkongwetan01@gmail.com'],['Akreditasi',DATA.school.accreditation]].map(x=>`<tr><th style="width:240px">${x[0]}</th><td>${x[1]}</td></tr>`).join('')}</tbody></table></div></div></section>`}
-function history(){return `${layout(t('history'),'PERJALANAN SEKOLAH','Timeline contoh perjalanan institusi dari awal berdiri hingga fase transformasi digital.')}<section class="section"><div class="container soft-card"><div class="timeline">${[['1998','Sekolah berdiri dan menerima angkatan pertama.'],['2004','Pengembangan laboratorium dan program literasi sekolah.'],['2011','Program pengembangan prestasi mulai diperluas.'],['2016','Perpustakaan dan pusat sumber belajar diperbarui.'],['2020','Transformasi pembelajaran digital dan layanan daring.'],['2024','Penguatan program teknologi, karakter, dan kolaborasi alumni.'],['2026','Portal informasi sekolah dikembangkan lebih terintegrasi.']].map(x=>`<div class="timeline-item"><div class="year">${x[0]}</div><div>${x[1]}</div></div>`).join('')}</div></div></section>`}
-function vision(){return `${layout(t('vision'),'ARAH DAN NILAI','Visi, misi, dan komitmen sekolah dalam membangun ekosistem pembelajaran.')}<section class="section"><div class="container grid-2"><div class="soft-card"><div class="kicker">Visi</div><h2>Menjadi sekolah unggul dalam akademik, karakter, kreativitas, dan teknologi.</h2><p style="color:var(--muted)">Visi ini menjadi arah bersama bagi penyelenggaraan pendidikan dan pengembangan budaya sekolah.</p></div><div class="soft-card"><div class="kicker">Misi</div><ul class="list-clean"><li>Mengembangkan pembelajaran aktif dan berpusat pada siswa.</li><li>Membentuk karakter melalui budaya disiplin dan keteladanan.</li><li>Mendorong literasi digital, kreativitas, dan inovasi.</li><li>Memfasilitasi prestasi akademik maupun non-akademik.</li><li>Memperkuat kolaborasi dengan orang tua, alumni, dan masyarakat.</li></ul></div></div></section>`}
-function principal(){return `${layout(t('principal'),'KEPEMIMPINAN','Informasi singkat kepala sekolah dan arah kepemimpinan institusi.')}<section class="section"><div class="container grid-2"><div class="image-card">${imgTag(img('photo-1544717305-2782549b5136',1000),'Kepala sekolah')}<div class="caption">Tarsono, S.Pd., M.M. · Kepala Sekolah</div></div><div class="soft-card"><div class="kicker">Sambutan Kepala Sekolah</div><h2>Selamat datang di portal resmi SDN Lengkong Wetan 01.</h2><div class="quote">“Pendidikan terbaik tumbuh ketika sekolah, keluarga, dan masyarakat berjalan dalam satu tujuan.”</div><p style="color:var(--muted)">Portal ini menjadi salah satu kanal informasi resmi untuk mendukung keterbukaan, komunikasi, dan kemudahan akses informasi bagi seluruh pemangku kepentingan sekolah.</p><div class="meta"><span class="badge">Kepala Sekolah</span><span class="badge">Periode 2024–2028</span></div></div></div></section>`}
-function teachers(){const q=APP.teacherQuery.toLowerCase();let arr=DATA.teachers.filter(x=>(x.name+x.subject+x.role).toLowerCase().includes(q));const queryItem=new URLSearchParams(location.hash.split('?')[1]||'').get('item');return `${layout(t('teachers'),'TIM PENDIDIK','Profil guru dan tenaga kependidikan untuk mengenal tim yang mendampingi proses belajar.')}<section class="section"><div class="container"><div class="toolbar"><input class="grow" id="teacherSearch" value="${APP.teacherQuery}" placeholder="Cari guru, mata pelajaran, atau jabatan..." aria-label="Cari guru"><select id="teacherRole"><option>Semua Jabatan</option>${[...new Set(DATA.teachers.map(x=>x.role))].map(r=>`<option>${r}</option>`).join('')}</select></div><div class="person-grid">${arr.map((x,i)=>`<article class="card person-card"><div class="card-media">${imgTag(x.img,x.name)}</div><div class="card-body"><div class="person-role">${x.role}</div><h3>${x.name}</h3><p>NIP: ${x.nip}</p><p>${x.subject}</p><div class="card-actions"><button class="btn btn-ghost" data-person="teacher" data-index="${DATA.teachers.indexOf(x)}">${t('view')}</button></div></div></article>`).join('')||`<div class="empty-state" style="grid-column:1/-1">${t('empty')}</div>`}</div>${queryItem!==null&&DATA.teachers[queryItem]?`<div class="notice-strip notice">${DATA.teachers[queryItem].name} dipilih dari pencarian global.</div>`:''}</div></section>`}
-function facilities(){const cats=['Semua',...new Set(DATA.facilities.map(x=>x[1]))];const arr=DATA.facilities.filter(x=>APP.facilityCategory==='Semua'||x[1]===APP.facilityCategory);return `${layout(t('facilities'),'RUANG DAN FASILITAS','Galeri fasilitas sekolah untuk mendukung pembelajaran, aktivitas, kesehatan, dan komunitas.')}<section class="section"><div class="container"><div class="toolbar">${cats.map(c=>`<button class="pill ${APP.facilityCategory===c?'active':''}" data-facility-cat="${c}">${c}</button>`).join('')}</div><div class="gallery-grid">${arr.map((x,i)=>`<div class="gallery-item reveal" data-gallery data-index="${DATA.facilities.indexOf(x)}">${imgTag(img(x[2],1000),x[0])}<div class="overlay"><div>${x[0]}</div><small>${x[1]}</small></div></div>`).join('')}</div></div></section>`}
-function extracurriculars(){const cats=['Semua',...new Set(DATA.extracurriculars.map(x=>x[1]))];const arr=DATA.extracurriculars.filter(x=>APP.extracurricularCategory==='Semua'||x[1]===APP.extracurricularCategory);return `${layout(t('extracurriculars'),'MINAT DAN BAKAT','Kegiatan yang membantu siswa mengembangkan kepemimpinan, kreativitas, kebugaran, dan keterampilan.')}<section class="section"><div class="container"><div class="toolbar">${cats.map(c=>`<button class="pill ${APP.extracurricularCategory===c?'active':''}" data-extra-cat="${c}">${c}</button>`).join('')}</div><div class="card-grid">${arr.map((x,i)=>`<article class="card"><div class="card-media">${imgTag(img(['photo-1540575467063-178a50c2df87','photo-1461896836934-ffe607ba8211','photo-1519681393784-d120267933ba'][i%3],800),x[0])}</div><div class="card-body"><div class="meta"><span class="badge">${x[1]}</span><span>${x[6]} anggota</span></div><h3>${x[0]}</h3><p>${x[2]}</p><div class="meta" style="margin-top:12px"><span>${x[3]}</span><span>${x[4]}</span><span>${x[5]}</span></div></div></article>`).join('')}</div></div></section>`}
-function achievements(){let years=['Semua',...new Set(DATA.achievements.map(x=>String(x.year)))];let arr=DATA.achievements.filter(x=>APP.achievementYear==='Semua'||String(x.year)===APP.achievementYear);return `${layout(t('achievements'),'CAPAIAN SISWA','Dokumentasi prestasi akademik dan non-akademik sebagai bentuk apresiasi dan pembelajaran.')}<section class="section"><div class="container"><div class="toolbar"><select id="achievementYear">${years.map(y=>`<option ${APP.achievementYear===y?'selected':''}>${y}</option>`).join('')}</select><div class="pill-tabs">${['Semua','Akademik','Non-Akademik'].map(c=>`<button class="pill ${((c==='Semua'&&APP.achievementCategory==='Semua')||APP.achievementCategory===c)?'active':''}" data-ach-cat="${c}">${c}</button>`).join('')}</div></div><div class="card-grid">${arr.filter(x=>APP.achievementCategory==='Semua'||x.category===APP.achievementCategory).map(x=>`<article class="card"><div class="card-media">${imgTag(x.img,x.name)}</div><div class="card-body"><div class="meta"><span class="badge">${x.category}</span><span>${x.year}</span><span>${x.level}</span></div><h3>${x.name}</h3><p>${x.student} · ${x.rank}</p></div></article>`).join('')}</div></div></section>`}
-function news(){const q=(document.getElementById('newsSearch')?.value||'').toLowerCase();const cat=(document.getElementById('newsCategory')?.value||'Semua');let arr=DATA.news.filter(n=>(n[0]+n[1]+n[3]+n[4]).toLowerCase().includes(q)&&(cat==='Semua'||n[1]===cat));const total=Math.max(1,Math.ceil(arr.length/APP.pageSize));APP.newsPage=Math.min(APP.newsPage,total);const pageArr=arr.slice((APP.newsPage-1)*APP.pageSize,APP.newsPage*APP.pageSize);return `${layout(t('news'),'INFORMASI TERKINI','Berita, kegiatan, dan artikel yang menggambarkan kehidupan sekolah.')}<section class="section"><div class="container"><div class="toolbar"><input class="grow" id="newsSearch" placeholder="Cari berita..." value="${q}"><select id="newsCategory"><option>Semua</option>${[...new Set(DATA.news.map(n=>n[1]))].map(c=>`<option ${cat===c?'selected':''}>${c}</option>`).join('')}</select><button id="newsApply" class="btn btn-primary">Terapkan</button></div><div class="card-grid" id="newsGrid">${pageArr.map((n,i)=>newsCard(n,DATA.news.indexOf(n))).join('')}</div>${pageArr.length===0?`<div class="empty-state">${t('empty')}</div>`:''}<div class="pagination">${Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===APP.newsPage?'active':''}" data-news-page="${i+1}">${i+1}</button>`).join('')}</div></div></section>`}
-function announcements(){return `${layout(t('announcements'),'PAPAN INFORMASI','Informasi resmi sekolah yang perlu menjadi perhatian siswa dan orang tua.')}<section class="section"><div class="container"><div class="toolbar"><input class="grow" id="announcementSearch" placeholder="Cari pengumuman..."></div><div class="card-grid" id="announcementsGrid">${DATA.announcements.map((x,i)=>`<article class="card"><div class="card-body"><div class="meta"><span class="badge">${x[3]}</span><span>${x[2]}</span></div><h3>${x[0]}</h3><p>${x[4]}</p><div class="card-actions"><button class="btn btn-ghost" data-announcement="${i}">${t('view')}</button></div></div></article>`).join('')}</div></div></section>`}
-function agenda(){const d=new Date('2026-10-01T12:00:00');const y=d.getFullYear(),m=d.getMonth();const first=new Date(y,m,1).getDay();const days=new Date(y,m+1,0).getDate();const eventsByDay={};DATA.events.forEach(e=>{const dt=new Date(e[1]+'T12:00:00');if(dt.getFullYear()===y&&dt.getMonth()===m)eventsByDay[dt.getDate()]=e});let cells=['Min','Sen','Sel','Rab','Kam','Jum','Sab'].map(x=>`<div class="cal-cell header">${x}</div>`).join('');for(let i=0;i<first;i++)cells+=`<div class="cal-cell muted"></div>`;for(let day=1;day<=days;day++){const ev=eventsByDay[day];cells+=`<div class="cal-cell ${ev?'event':''}" ${ev?`data-event="${DATA.events.indexOf(ev)}"`:''}><strong>${day}</strong>${ev?`<div style="margin-top:4px;font-size:10px">${ev[0]}</div>`:''}</div>`}return `${layout(t('agenda'),'KALENDER KEGIATAN','Jadwal kegiatan sekolah ditampilkan dalam kalender interaktif.')}<section class="section"><div class="container agenda-grid"><div class="calendar"><div class="calendar-head"><button class="icon-btn">‹</button><strong>Oktober 2026</strong><button class="icon-btn">›</button></div><div class="calendar-grid">${cells}</div></div><div><div class="section-head" style="margin-bottom:12px"><div><div class="kicker">Agenda</div><h2>Kegiatan Mendatang</h2></div></div><div class="event-list">${DATA.events.map((e,i)=>`<button class="event-card" data-event="${i}" style="text-align:left"><strong>${e[0]}</strong><span class="meta">${e[1]} · ${e[2]} · ${e[3]}</span><span style="color:var(--muted);font-size:12px">${e[4]}</span></button>`).join('')}</div></div></div></section>`}
-function finance(){const years=DATA.finance.map(x=>x.year);const max=Math.max(...DATA.finance.map(x=>x.income));return `${layout(t('finance'),'KETERBUKAAN INFORMASI','Ringkasan rencana, sumber, penggunaan dana, dan laporan contoh.')}<section class="section"><div class="container"><div class="pill-tabs" style="margin-bottom:18px">${years.map(y=>`<span class="pill ${y===2026?'active':''}">${y}</span>`).join('')}</div><div class="stats-grid"><div class="stat-card"><div class="num">Rp${DATA.finance.at(-1).income} jt</div><small>Total pemasukan 2026</small></div><div class="stat-card"><div class="num">Rp${DATA.finance.at(-1).spend} jt</div><small>Total penggunaan 2026</small></div><div class="stat-card"><div class="num">Rp${DATA.finance.at(-1).income-DATA.finance.at(-1).spend} jt</div><small>Saldo/sisa anggaran</small></div><div class="stat-card"><div class="num">${Math.round(DATA.finance.at(-1).spend/DATA.finance.at(-1).income*100)}%</div><small>Realisasi anggaran</small></div></div></div></section><section class="section tight"><div class="container finance-grid"><div class="soft-card"><div class="kicker">Penggunaan Dana</div><h3>2026 — per kategori</h3><div class="bar-chart">${[['Pembelajaran',2100],['Fasilitas',1150],['Kesiswaan',590],['Lainnya',680]].map(x=>`<div class="bar-row"><span>${x[0]}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(x[1]/max*100)}%"></div></div><strong>Rp${x[1]} jt</strong></div>`).join('')}</div></div><div class="soft-card"><div class="kicker">Laporan Tahunan</div><h3>Ringkasan 2024–2026</h3><div class="table-wrap"><table><thead><tr><th>Tahun</th><th>Pemasukan</th><th>Penggunaan</th><th>Sisa</th></tr></thead><tbody>${DATA.finance.map(x=>`<tr><td>${x.year}</td><td>Rp${x.income} jt</td><td>Rp${x.spend} jt</td><td>Rp${x.income-x.spend} jt</td></tr>`).join('')}</tbody></table></div></div></div></section><section class="section tight"><div class="container soft-card"><div class="kicker">Catatan</div><p style="color:var(--muted);margin-bottom:0">Angka keuangan di halaman ini adalah data dummy realistis untuk prototipe dan bukan laporan sekolah yang sebenarnya.</p></div></section>`}
-function alumni(){let arr=DATA.alumni.filter(x=>(x.name+x.job+x.uni).toLowerCase().includes(APP.alumniQuery.toLowerCase()));return `${layout(t('alumni'),'JEJAK ALUMNI','Mengenal perjalanan alumni dan dampak mereka di berbagai bidang.')}<section class="section"><div class="container"><div class="toolbar"><input class="grow" id="alumniSearch" value="${APP.alumniQuery}" placeholder="Cari alumni, pekerjaan, atau universitas..."></div><div class="card-grid">${arr.map(x=>`<article class="card"><div class="card-media">${imgTag(x.img,x.name)}</div><div class="card-body"><div class="meta"><span class="badge">Lulus ${x.year}</span><span>${x.uni}</span></div><h3>${x.name}</h3><p>${x.job}</p><p style="margin-top:8px">${x.achievement}</p></div></article>`).join('')}</div></div></section><section class="section tight"><div class="container soft-card"><div class="kicker">Jejak Alumni</div><h2>“Sekolah memberi kami fondasi; pengalaman setelah lulus mengajarkan cara menggunakannya.”</h2><p style="color:var(--muted)">Cerita dan profil di atas merupakan konten dummy untuk kebutuhan desain portal sekolah.</p></div></section>`}
-function ppdb(){return `${layout('Penerimaan Peserta Didik Baru','PPDB 2027/2028','Informasi contoh tentang persyaratan, jadwal, jalur, biaya, dan proses pendaftaran.')}<section class="section"><div class="container grid-2"><div class="soft-card"><div class="kicker">Persyaratan</div><ul class="list-clean"><li>Ijazah atau surat keterangan lulus sesuai ketentuan.</li><li>Kartu keluarga dan dokumen identitas.</li><li>Pas foto dan dokumen pendukung jalur pendaftaran.</li><li>Dokumen prestasi untuk jalur prestasi jika ada.</li></ul><div class="kicker" style="margin-top:24px">Jadwal</div><div class="table-wrap"><table><tr><td>Pendaftaran daring</td><td>2–14 Juni 2027</td></tr><tr><td>Verifikasi</td><td>5–16 Juni 2027</td></tr><tr><td>Pengumuman</td><td>20 Juni 2027</td></tr><tr><td>Daftar ulang</td><td>21–24 Juni 2027</td></tr></table></div></div><div class="soft-card"><div class="kicker">Alur Pendaftaran</div><div class="timeline"><div class="timeline-item"><div class="year">01</div><div>Registrasi akun dan data calon peserta didik.</div></div><div class="timeline-item"><div class="year">02</div><div>Unggah dokumen dan pilih jalur pendaftaran.</div></div><div class="timeline-item"><div class="year">03</div><div>Verifikasi dokumen dan perbaikan jika diperlukan.</div></div><div class="timeline-item"><div class="year">04</div><div>Pantau hasil seleksi dan lakukan daftar ulang.</div></div></div><div class="card-actions"><button id="downloadPPDB" class="btn btn-primary">Download Panduan PPDB</button><a href="#contact" class="btn btn-ghost">Tanya Panitia</a></div></div></div></section><section class="section tight"><div class="container soft-card"><div class="kicker">FAQ</div><div class="faq"><details><summary>Apakah biaya pendaftaran berbayar?</summary><p style="color:var(--muted)">Untuk contoh portal ini, biaya pendaftaran ditampilkan sebagai Rp0 dan dapat disesuaikan dengan kebijakan sekolah.</p></details><details><summary>Apakah tersedia jalur prestasi?</summary><p style="color:var(--muted)">Ya. Jalur prestasi dapat mencakup prestasi akademik maupun non-akademik sesuai ketentuan.</p></details><details><summary>Bagaimana cara mendapat informasi terbaru?</summary><p style="color:var(--muted)">Pantau halaman PPDB, pengumuman, dan kanal kontak resmi sekolah.</p></details></div></div></section>`}
-function contact(){return `${layout(t('contact'),'HUBUNGI KAMI','Gunakan kanal berikut untuk mendapatkan informasi atau menyampaikan pertanyaan.')}<section class="section"><div class="container contact-grid"><div class="soft-card"><div class="kicker">Informasi</div><h2>SDN Lengkong Wetan 01</h2><div class="footer-links" style="font-size:13px;margin-top:18px;color:var(--muted)"><span>📍 ${DATA.school.address}</span><span>☎ ${DATA.school.phone}</span><span>✉ ${DATA.school.email}</span><span>🌐 Website resmi sekolah</span><span>⏰ Senin–Jumat, 07.00–15.30</span></div><div class="socials" style="margin-top:18px"><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a><a href="https://youtube.com" target="_blank" rel="noreferrer">YouTube</a></div></div><div class="map-box"><iframe title="Lokasi sekolah" loading="lazy" src="https://www.google.com/maps?q=Jl.%20Kelurahan%20Lengkong%20Wetan,%20Serpong,%20Tangerang%20Selatan,%20Banten&output=embed"></iframe></div></div></section><section class="section tight"><div class="container soft-card"><div class="kicker">Formulir</div><h2>Kirim Pesan</h2><form id="contactForm" class="form-grid" novalidate><div><label for="name">Nama</label><input id="name" required></div><div><label for="email">Email</label><input id="email" type="email" required></div><div><label for="phone">Nomor Telepon</label><input id="phone" required></div><div><label for="subject">Subject</label><input id="subject" required></div><div class="full"><label for="message">Message</label><textarea id="message" required></textarea></div><div class="full"><button class="btn btn-primary" type="submit">Kirim Pesan</button><div id="formStatus" style="margin-top:10px;font-size:13px"></div></div></form></div></section>`}
-function renderPage(){
- const routes={home,about,history,vision,principal,teachers,facilities,news,announcements,agenda,finance,extracurriculars,achievements,alumni,ppdb,contact};
- const fn=routes[APP.route]||home; document.getElementById('pageRoot').innerHTML=fn(); document.title=`${routeTitle(APP.route)} — SDN Lengkong Wetan 01`; afterRender();
-}
-function routeTitle(r){return {home:'SDN Lengkong Wetan 01',about:'Tentang Sekolah',history:'Sejarah',vision:'Visi & Misi',principal:'Kepala Sekolah',teachers:'Guru & Staff',facilities:'Fasilitas',news:'Berita',announcements:'Pengumuman',agenda:'Agenda',finance:'Keuangan',extracurriculars:'Ekstrakurikuler',achievements:'Prestasi',alumni:'Alumni',ppdb:'PPDB',contact:'Kontak'}[r]||'SDN Lengkong Wetan 01'}
-function parseRoute(){const raw=location.hash.replace('#','')||'home';APP.route=(raw.split('?')[0]||'home'); if(APP.route==='about'&&raw.includes('#'))APP.route='about';}
-function afterRender(){document.querySelectorAll('.reveal').forEach(el=>requestAnimationFrame(()=>el.classList.add('in'))); if(APP.route==='home')initCounters(); bindPageEvents(); window.scrollTo({top:0,behavior:'smooth'});}
-function initCounters(){document.querySelectorAll('[data-counter]').forEach(el=>{const target=Number(el.dataset.counter||0);if(!target)return;const text=el.textContent;let v=0;const step=Math.max(1,Math.ceil(target/22));const timer=setInterval(()=>{v=Math.min(target,v+step);el.textContent=v.toLocaleString();if(v>=target){clearInterval(timer); if(/[A-Za-z]/.test(text))el.textContent=text;}},35)})}
-function bindPageEvents(){
- const hs=document.getElementById('heroSearch'); if(hs)hs.addEventListener('submit',e=>{e.preventDefault();runGlobalSearch(document.getElementById('heroSearchInput').value)});
- const teacherSearch=document.getElementById('teacherSearch'); if(teacherSearch)teacherSearch.addEventListener('input',()=>{APP.teacherQuery=teacherSearch.value;renderPage()});
- document.querySelectorAll('[data-person="teacher"]').forEach(b=>b.addEventListener('click',()=>openTeacher(Number(b.dataset.index))));
- document.querySelectorAll('[data-facility-cat]').forEach(b=>b.addEventListener('click',()=>{APP.facilityCategory=b.dataset.facilityCat;renderPage()}));
- document.querySelectorAll('[data-extra-cat]').forEach(b=>b.addEventListener('click',()=>{APP.extracurricularCategory=b.dataset.extraCat;renderPage()}));
- const achievementYear=document.getElementById('achievementYear'); if(achievementYear)achievementYear.addEventListener('change',()=>{APP.achievementYear=achievementYear.value;renderPage()});
- document.querySelectorAll('[data-ach-cat]').forEach(b=>b.addEventListener('click',()=>{APP.achievementCategory=b.dataset.achCat;renderPage()}));
- const newsApply=document.getElementById('newsApply'); if(newsApply)newsApply.addEventListener('click',()=>{APP.newsPage=1;renderPage()});
- document.querySelectorAll('[data-news-page]').forEach(b=>b.addEventListener('click',()=>{APP.newsPage=Number(b.dataset.newsPage);renderPage()}));
- const nsearch=document.getElementById('newsSearch'); if(nsearch)nsearch.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();APP.newsPage=1;renderPage()}});
- const annSearch=document.getElementById('announcementSearch'); if(annSearch)annSearch.addEventListener('input',()=>{const q=annSearch.value.toLowerCase();document.querySelectorAll('#announcementsGrid .card').forEach((card,i)=>card.style.display=(DATA.announcements[i][0]+DATA.announcements[i][4]).toLowerCase().includes(q)?'':'none')});
- document.querySelectorAll('[data-announcement]').forEach(b=>b.addEventListener('click',()=>openAnnouncement(Number(b.dataset.announcement))));
- document.querySelectorAll('[data-event]').forEach(b=>b.addEventListener('click',()=>openEvent(Number(b.dataset.event))));
- const alumniSearch=document.getElementById('alumniSearch'); if(alumniSearch)alumniSearch.addEventListener('input',()=>{APP.alumniQuery=alumniSearch.value;renderPage()});
- document.querySelectorAll('[data-gallery]').forEach(g=>g.addEventListener('click',()=>openGallery(Number(g.dataset.index))));
- const download=document.getElementById('downloadPPDB'); if(download)download.addEventListener('click',downloadPPDB);
- const cf=document.getElementById('contactForm'); if(cf)cf.addEventListener('submit',submitContact);
-}
-function openModal(html){document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop" id="modalBackdrop"><div class="modal" role="dialog" aria-modal="true"><button class="modal-close" id="modalClose" aria-label="Tutup">✕</button>${html}</div></div>`;document.getElementById('modalClose').onclick=closeModal;document.getElementById('modalBackdrop').onclick=e=>{if(e.target.id==='modalBackdrop')closeModal()};document.addEventListener('keydown',escOnce)}
-function escOnce(e){if(e.key==='Escape'){closeModal();document.removeEventListener('keydown',escOnce)}}
-function closeModal(){document.getElementById('modalRoot').innerHTML=''}
-function openTeacher(i){const x=DATA.teachers[i];openModal(`<div class="grid-2"><div class="image-card">${imgTag(x.img,x.name)}</div><div><div class="person-role">${x.role}</div><h2>${x.name}</h2><p>NIP: ${x.nip}</p><p><strong>${x.subject}</strong></p><p style="color:var(--muted)">${x.email}</p><div class="notice">Profil ini menggunakan data dummy untuk prototipe website.</div></div></div>`)}
-function openAnnouncement(i){const x=DATA.announcements[i];openModal(`<div class="kicker">${x[3]} · ${x[2]}</div><h2>${x[0]}</h2><p>${x[4]}</p><div class="notice">Informasi contoh untuk kebutuhan prototipe.</div>`)}
-function openEvent(i){const x=DATA.events[i];openModal(`<div class="kicker">AGENDA</div><h2>${x[0]}</h2><div class="meta"><span class="badge">${x[1]}</span><span class="badge">${x[2]}</span><span class="badge">${x[3]}</span></div><p style="margin-top:18px">${x[4]}</p>`)}
-function openGallery(i){const x=DATA.facilities[i];openModal(`${imgTag(img(x[2],1400),x[0])}<div class="kicker" style="margin-top:16px">${x[1]}</div><h2 style="margin-bottom:6px">${x[0]}</h2><p style="color:var(--muted)">Foto ilustrasi fasilitas untuk kebutuhan prototipe.</p>`) }
-function runGlobalSearch(q){const v=q.trim().toLowerCase();const results=DATA.searchIndex.filter(x=>(x.title+x.desc+x.cat).toLowerCase().includes(v));const panel=document.querySelector('.search-results')||(()=>{const d=document.createElement('div');d.className='search-results';document.body.appendChild(d);return d})();panel.innerHTML=`<div class="search-panel">${v?`<div class="kicker" style="padding:5px 8px">Hasil pencarian untuk “${q.replace(/</g,'&lt;')}”</div>`:''}${results.length?results.slice(0,30).map(x=>`<a class="search-result" href="${x.href}"><strong>${x.title}</strong><span>${x.cat} · ${x.desc}</span></a>`).join(''):`<div class="empty-state">${t('empty')}</div>`}</div>`;panel.classList.add('active');panel.onclick=e=>{if(e.target.closest('a'))panel.classList.remove('active')};setTimeout(()=>{document.addEventListener('click',e=>{if(!e.target.closest('.search-results')&&!e.target.closest('#heroSearch'))panel.classList.remove('active')},{once:true})},0)}
-function submitContact(e){e.preventDefault();const form=e.currentTarget;const status=document.getElementById('formStatus');if(!form.checkValidity()){form.reportValidity();status.textContent='Lengkapi semua field yang wajib diisi.';status.style.color='var(--danger)';return}status.textContent='Pesan berhasil divalidasi dan disimpan sebagai draft lokal.';status.style.color='var(--success)';localStorage.setItem('schoolContactDraft',JSON.stringify(Object.fromEntries(new FormData(form))));form.reset()}
-function downloadPPDB(){const body=`PANDUAN PPDB SDN LENGKONG WETAN 01\n\nJadwal: 2–14 Juni 2027\nVerifikasi: 5–16 Juni 2027\nPengumuman: 20 Juni 2027\nDaftar Ulang: 21–24 Juni 2027\n\nDokumen: Ijazah/surat keterangan lulus, kartu keluarga, identitas, pas foto, dan dokumen jalur yang dipilih.\n\nCatatan: File ini adalah panduan dummy untuk prototipe website.`;const blob=new Blob([body],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Panduan_PPDB_2027_2028.txt';a.click();URL.revokeObjectURL(a.href)}
+  if (currentYear) currentYear.textContent = new Date().getFullYear();
 
-function setTheme(){document.documentElement.dataset.theme=APP.theme;localStorage.setItem('schoolTheme',APP.theme);document.getElementById('themeBtn').textContent=APP.theme==='dark'?'☀':'☾'}
-function setLang(){document.getElementById('langLabel').textContent=APP.lang.toUpperCase();document.getElementById('langBtn').firstChild.textContent=APP.lang==='id'?'🇮🇩 ':'🇬🇧 ';document.getElementById('footerAbout').textContent=APP.lang==='id'?'Sekolah menengah unggulan yang berkomitmen membangun generasi cerdas, berkarakter, kreatif, dan berprestasi.':'A leading elementary school committed to building an intelligent, character-driven, creative, and accomplished generation.';document.getElementById('footerNavTitle').textContent=APP.lang==='id'?'Navigasi':'Navigation';document.getElementById('footerInfoTitle').textContent=APP.lang==='id'?'Informasi':'Information';document.getElementById('footerSocialTitle').textContent='Social Media'}
+  const modalData = {
+    'facility-koperasi': {
+      title: 'Koperasi',
+      badge: 'Fasilitas',
+      image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1200&q=85',
+      text: 'Koperasi menyediakan kebutuhan sederhana bagi warga sekolah sekaligus mendukung pembelajaran tentang kemandirian, tanggung jawab, dan pengelolaan ekonomi.'
+    },
+    'facility-perpustakaan': {
+      title: 'Perpustakaan',
+      badge: 'Fasilitas',
+      image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=85',
+      text: 'Perpustakaan mendukung budaya membaca, pencarian informasi, pembelajaran mandiri, serta berbagai kegiatan literasi sekolah.'
+    },
+    'facility-mushola': {
+      title: 'Mushola',
+      badge: 'Fasilitas',
+      image: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=85',
+      text: 'Mushola digunakan sebagai tempat ibadah dan mendukung kegiatan pembinaan karakter serta kegiatan keagamaan di lingkungan sekolah.'
+    },
+    'facility-kantin': {
+      title: 'Kantin',
+      badge: 'Fasilitas',
+      image: 'https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=1200&q=85',
+      text: 'Kantin menyediakan makanan dan minuman untuk mendukung kebutuhan warga sekolah selama kegiatan belajar dengan memperhatikan kebersihan dan kenyamanan.'
+    },
+    'news-1': {
+      title: 'Semangat Pagi melalui Upacara Bendera',
+      badge: 'Kegiatan • 12 Sep 2026',
+      image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=85',
+      text: 'Upacara bendera menjadi bagian dari pembiasaan positif untuk menumbuhkan kedisiplinan, rasa hormat, tanggung jawab, dan semangat kebersamaan.'
+    },
+    'news-2': {
+      title: 'Program Literasi untuk Menumbuhkan Budaya Membaca',
+      badge: 'Akademik • 03 Sep 2026',
+      image: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=85',
+      text: 'Program literasi mendorong kebiasaan membaca melalui kegiatan rutin, pemanfaatan perpustakaan, pojok baca, dan aktivitas literasi yang menyenangkan.'
+    },
+    'news-3': {
+      title: 'Apresiasi untuk Siswa Berprestasi',
+      badge: 'Prestasi • 28 Agu 2026',
+      image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=85',
+      text: 'Sekolah memberikan apresiasi kepada siswa atas capaian akademik maupun nonakademik sebagai bagian dari budaya positif dan motivasi untuk terus berkembang.'
+    },
+    'news-4': {
+      title: 'Informasi Awal Penerimaan Peserta Didik Baru',
+      badge: 'PPDB • 10 Agu 2026',
+      image: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1200&q=85',
+      text: 'Informasi PPDB memuat tahapan pendaftaran, jalur penerimaan, persyaratan, kuota, dan dokumen yang diperlukan bagi calon peserta didik.'
+    },
+    'activity-1': {
+      title: 'Kegiatan Belajar', badge: 'Kegiatan Sekolah', image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=85', text: 'Kegiatan belajar berlangsung secara aktif, kolaboratif, dan ramah anak untuk mendukung perkembangan pengetahuan serta keterampilan peserta didik.'
+    },
+    'activity-2': {
+      title: 'Kegiatan Olahraga', badge: 'Kegiatan Sekolah', image: 'https://images.unsplash.com/photo-1546484959-fd8f8a5f4b0f?auto=format&fit=crop&w=1200&q=85', text: 'Kegiatan olahraga mendukung kebugaran, sportivitas, kerja sama, serta pembentukan kebiasaan hidup sehat.'
+    },
+    'activity-3': {
+      title: 'Kegiatan Seni', badge: 'Kegiatan Sekolah', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85', text: 'Kegiatan seni memberi ruang bagi siswa untuk mengeksplorasi kreativitas, keberanian tampil, dan apresiasi terhadap karya.'
+    },
+    'activity-4': {
+      title: 'Upacara', badge: 'Kegiatan Sekolah', image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=85', text: 'Upacara mendukung pembiasaan disiplin, tanggung jawab, dan rasa kebersamaan di lingkungan sekolah.'
+    },
+    'activity-5': {
+      title: 'Kegiatan Keagamaan', badge: 'Kegiatan Sekolah', image: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=1200&q=85', text: 'Kegiatan keagamaan mendukung pembentukan karakter, pembiasaan positif, dan penguatan nilai-nilai kehidupan peserta didik.'
+    },
+    'achievement-1': {
+      title: 'Juara Lomba Cerdas Cermat', badge: 'Akademik • 2026 • Tingkat Kecamatan', image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=85', text: 'Prestasi ini menjadi salah satu bentuk apresiasi atas kemampuan, kerja sama, dan semangat belajar peserta didik.'
+    },
+    'achievement-2': {
+      title: 'Juara Turnamen Futsal', badge: 'Olahraga • 2026 • Tingkat Kecamatan', image: 'https://images.unsplash.com/photo-1546484959-fd8f8a5f4b0f?auto=format&fit=crop&w=1200&q=85', text: 'Prestasi ini mencerminkan semangat sportivitas, kerja sama tim, dan ketekunan peserta didik dalam mengikuti kompetisi.'
+    },
+    'achievement-3': {
+      title: 'Finalis Festival Seni Pelajar', badge: 'Seni • 2026 • Tingkat Kota', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85', text: 'Prestasi ini menunjukkan kreativitas, keberanian tampil, dan kemampuan peserta didik dalam bidang seni.'
+    }
+  };
 
-document.addEventListener('DOMContentLoaded',()=>{initSearch();APP.achievementCategory='Semua';document.documentElement.dataset.theme=APP.theme;setLang();renderPage();setTimeout(()=>document.getElementById('app-loading').classList.add('done'),350);const header=document.getElementById('site-header');window.addEventListener('scroll',()=>{header.classList.toggle('scrolled',scrollY>12);document.getElementById('backTop').classList.toggle('show',scrollY>420)});document.getElementById('backTop').onclick=()=>scrollTo({top:0,behavior:'smooth'});document.getElementById('mobileMenuBtn').onclick=()=>{const nav=document.getElementById('mainNav');nav.classList.toggle('open');document.getElementById('mobileMenuBtn').setAttribute('aria-expanded',nav.classList.contains('open'))};document.getElementById('themeBtn').onclick=()=>{APP.theme=APP.theme==='dark'?'light':'dark';setTheme()};document.getElementById('langBtn').onclick=()=>{APP.lang=APP.lang==='id'?'en':'id';localStorage.setItem('schoolLang',APP.lang);setLang();renderPage()}});
-window.addEventListener('hashchange',()=>{parseRoute();renderPage();document.getElementById('mainNav').classList.remove('open')});
+  function showToast(message) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    window.clearTimeout(showToast._timer);
+    showToast._timer = window.setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  function openModal(key) {
+    const data = modalData[key];
+    if (!data || !modal || !modalContent) return;
+    modalContent.innerHTML = `
+      <div class="modal-meta"><span>${escapeHtml(data.badge)}</span></div>
+      <h2 id="modalTitle">${escapeHtml(data.title)}</h2>
+      <img src="${escapeAttr(data.image)}" alt="${escapeAttr(data.title)}" data-fallback-label="${escapeAttr(data.title)}" />
+      <p>${escapeHtml(data.text)}</p>
+    `;
+    modal.hidden = false;
+    document.body.classList.add('modal-open');
+    const close = $('.modal-close', modal);
+    if (close) close.focus();
+    attachImageFallbacks($('.modal-dialog'));
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.hidden = true;
+    document.body.classList.remove('modal-open');
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
+  }
+  function escapeAttr(value) { return escapeHtml(value); }
+
+  function attachImageFallbacks(root = document) {
+    $$('img[data-fallback-label]', root).forEach(img => {
+      if (img.dataset.fallbackAttached === '1') return;
+      img.dataset.fallbackAttached = '1';
+      img.addEventListener('error', () => {
+        const label = img.getAttribute('data-fallback-label') || 'Foto Sekolah';
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b2139"/><stop offset="1" stop-color="#1e5a8a"/></linearGradient></defs><rect width="1200" height="700" fill="url(#g)"/><circle cx="1030" cy="125" r="70" fill="#f0bd4a" opacity=".95"/><path d="M120 470 L360 265 L540 400 L760 205 L1080 470 Z" fill="#fff" opacity=".12"/><text x="600" y="560" fill="#fff" font-family="Arial" font-size="52" font-weight="700" text-anchor="middle">${label.replace(/[<>&"']/g,'')}</text><text x="600" y="610" fill="#dbe8f2" font-family="Arial" font-size="22" text-anchor="middle">SDN LENGKONG WETAN 1</text></svg>`;
+        img.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+      }, { once: true });
+    });
+  }
+
+  attachImageFallbacks();
+
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+    });
+    $$('.nav-menu a').forEach(link => link.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }));
+  }
+
+  $$('[data-modal]').forEach(button => {
+    button.addEventListener('click', () => openModal(button.dataset.modal));
+  });
+  $$('[data-close-modal]').forEach(el => el.addEventListener('click', closeModal));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && !modal.hidden) closeModal(); });
+
+  const newsCards = $$('#newsGrid .news-card');
+  const newsSearch = $('#newsSearch');
+  const newsFilter = $('#newsFilter');
+  const newsEmpty = $('#newsEmpty');
+  function filterNews() {
+    const q = (newsSearch?.value || '').trim().toLowerCase();
+    const cat = newsFilter?.value || 'all';
+    let count = 0;
+    newsCards.forEach(card => {
+      const text = (card.dataset.search || '').toLowerCase();
+      const category = card.dataset.category || '';
+      const show = (!q || text.includes(q)) && (cat === 'all' || category === cat);
+      card.hidden = !show;
+      if (show) count++;
+    });
+    if (newsEmpty) newsEmpty.hidden = count !== 0;
+  }
+  newsSearch?.addEventListener('input', filterNews);
+  newsFilter?.addEventListener('change', filterNews);
+
+  const facilityEmpty = $('#facilityEmpty');
+  const facilityCards = $$('#facilityGrid .facility-card');
+  function filterFacilities(query) {
+    const q = (query || '').trim().toLowerCase();
+    let count = 0;
+    facilityCards.forEach(card => {
+      const show = !q || (card.dataset.search || '').toLowerCase().includes(q);
+      card.hidden = !show;
+      if (show) count++;
+    });
+    if (facilityEmpty) facilityEmpty.hidden = count !== 0;
+  }
+
+  const globalSearchForm = $('#globalSearchForm');
+  const globalSearch = $('#globalSearch');
+  const globalSearchFeedback = $('#globalSearchFeedback');
+  globalSearchForm?.addEventListener('submit', e => {
+    e.preventDefault();
+    const q = (globalSearch?.value || '').trim().toLowerCase();
+    if (!q) {
+      if (globalSearchFeedback) globalSearchFeedback.textContent = 'Ketik kata kunci, misalnya: PPDB, fasilitas, berita, perpustakaan.';
+      return;
+    }
+    const sectionMap = [
+      ['ppdb',['ppdb','pendaftaran','siswa baru']],
+      ['fasilitas',['fasilitas','koperasi','perpustakaan','mushola','kantin']],
+      ['berita',['berita','kabar','informasi']],
+      ['prestasi',['prestasi','juara','lomba']],
+      ['kegiatan',['kegiatan','upacara','olahraga','seni']],
+      ['profil',['profil','sejarah','visi','misi','kepala sekolah','guru']],
+      ['kontak',['kontak','alamat','telepon','email']]
+    ];
+    const target = sectionMap.find(([_, terms]) => terms.some(term => q.includes(term)));
+    if (target) {
+      if (globalSearchFeedback) globalSearchFeedback.textContent = `Menampilkan bagian: ${target[0].replace(/^./, c => c.toUpperCase())}.`;
+      document.getElementById(target[0])?.scrollIntoView({behavior:'smooth', block:'start'});
+      if (target[0] === 'berita' && newsSearch) { newsSearch.value = q; filterNews(); }
+      if (target[0] === 'fasilitas') filterFacilities(q);
+      return;
+    }
+    if (globalSearchFeedback) globalSearchFeedback.textContent = `Tidak ada bagian khusus untuk “${globalSearch.value.trim()}”. Coba kata kunci lain.`;
+    document.getElementById('profil')?.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  const contactForm = $('#contactForm');
+  contactForm?.addEventListener('submit', e => {
+    e.preventDefault();
+    const formStatus = $('#formStatus');
+    let valid = true;
+    const fields = ['name','email','topic','message'];
+    fields.forEach(id => {
+      const input = document.getElementById(id);
+      const wrapper = input?.closest('.field');
+      const error = $(`[data-error-for="${id}"]`);
+      let message = '';
+      if (!input || !input.value.trim()) message = 'Wajib diisi.';
+      else if (id === 'name' && input.value.trim().length < 3) message = 'Minimal 3 karakter.';
+      else if (id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) message = 'Format email belum valid.';
+      else if (id === 'message' && input.value.trim().length < 10) message = 'Minimal 10 karakter.';
+      if (wrapper) wrapper.classList.toggle('invalid', Boolean(message));
+      if (error) error.textContent = message;
+      if (message) valid = false;
+    });
+    if (!valid) {
+      if (formStatus) { formStatus.className = 'form-status error'; formStatus.textContent = 'Periksa kembali field yang masih kosong atau belum valid.'; }
+      return;
+    }
+    if (formStatus) { formStatus.className = 'form-status success'; formStatus.textContent = 'Pesan berhasil diproses.'; }
+    showToast('Pesan berhasil diproses.');
+    contactForm.reset();
+  });
+
+  $$('input,select,textarea').forEach(input => {
+    input.addEventListener('input', () => input.closest('.field')?.classList.remove('invalid'));
+  });
+
+  const revealObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-up');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .08 }) : null;
+  $$('.facility-card,.news-card,.announcement-item,.achievement-card,.ppdb-card,.person-card,.profile-block,.contact-cards article').forEach(el => revealObserver?.observe(el));
+
+  function updateBackTop() {
+    if (!backTop) return;
+    backTop.classList.toggle('visible', window.scrollY > 700);
+  }
+  window.addEventListener('scroll', updateBackTop, {passive:true});
+  updateBackTop();
+  backTop?.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+  window.addEventListener('load', () => {
+    attachImageFallbacks();
+    filterNews();
+  });
+})();
