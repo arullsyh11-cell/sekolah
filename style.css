@@ -41,14 +41,14 @@ button{cursor:pointer}
 .navbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(13,49,77,.08)}
 .nav-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:12px;min-width:0}
-.brand-mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#fff;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(4,18,31,.10)}
-.brand-mark img{width:100%;height:100%;object-fit:contain;display:block}
+.brand-mark{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:#fff;overflow:hidden;padding:4px;box-shadow:inset 0 0 0 1px rgba(4,18,31,.10)}
+.brand-mark img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;aspect-ratio:1/1}
 .brand-copy{display:flex;flex-direction:column;min-width:0}.brand-copy strong{font:800 14px/1.2 'Plus Jakarta Sans',sans-serif;color:var(--navy);white-space:nowrap}.brand-copy span{font-size:11px;color:var(--muted);margin-top:3px}
 .nav-menu{display:flex;align-items:center;gap:5px}.nav-menu a{font-size:13px;font-weight:700;color:#365066;padding:10px 12px;border-radius:10px;transition:.2s}.nav-menu a:hover{background:var(--blue-soft);color:var(--blue)}.nav-menu .nav-cta{background:var(--navy);color:#fff;padding-inline:15px}.nav-menu .nav-cta:hover{background:var(--blue)}
 .menu-toggle{display:none;border:0;background:transparent;width:44px;height:44px;border-radius:12px}.menu-toggle span{display:block;width:22px;height:2px;background:var(--navy);margin:5px auto;border-radius:2px}
 
 .hero{position:relative;min-height:650px;display:grid;align-items:center;overflow:hidden;background:var(--navy)}
-.hero-backdrop{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(4,18,31,.88) 0%,rgba(4,18,31,.66) 45%,rgba(4,18,31,.35) 100%),url('assets/profile-school.jpg');background-size:cover;background-position:center}
+.hero-backdrop{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(4,18,31,.88) 0%,rgba(4,18,31,.66) 45%,rgba(4,18,31,.35) 100%),var(--hero-image);background-size:cover;background-position:center}
 .hero-content{position:relative;z-index:1;padding:94px 0 130px;color:#fff;max-width:900px}.hero-kicker{display:inline-flex;gap:9px;align-items:center;color:#f7dea1;font-size:13px;font-weight:800;letter-spacing:.02em}.kicker-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;box-shadow:0 0 0 7px rgba(240,189,74,.12)}
 .hero h1{font:800 clamp(44px,6.3vw,82px)/.98 'Plus Jakarta Sans',sans-serif;letter-spacing:-.04em;margin:22px 0 18px;max-width:980px}.hero-tagline{font-size:clamp(17px,2vw,22px);line-height:1.6;color:#eaf2f8;max-width:790px;margin:0 0 30px}
 .hero-search{max-width:760px}.search-wrap{display:flex;align-items:center;background:#fff;border-radius:16px;padding:6px;box-shadow:var(--shadow)}.search-icon{color:var(--muted);font-size:24px;line-height:1;padding-left:12px}.search-wrap input{flex:1;border:0;outline:0;padding:13px 12px;color:var(--ink);background:transparent}.search-wrap button{border:0;background:var(--gold);color:var(--navy);font-weight:800;padding:12px 18px;border-radius:11px}.search-feedback{min-height:22px;margin:7px 2px 0;color:#dbeaf4;font-size:12px}.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:7px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:13px 18px;border:1px solid transparent;font-weight:800;font-size:13px;transition:transform .2s,box-shadow .2s,background .2s}.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--gold);color:var(--navy);box-shadow:0 10px 24px rgba(240,189,74,.22)}.btn-primary:hover{background:#f5ca61}.btn-secondary{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.26);backdrop-filter:blur(8px)}.btn-secondary:hover{background:rgba(255,255,255,.15)}.hero-wave{position:absolute;left:-4%;right:-4%;bottom:-42px;height:95px;background:var(--paper);border-radius:50% 50% 0 0/100% 100% 0 0}
@@ -83,4 +83,65 @@ button{cursor:pointer}
 
 @media (max-width:1100px){.nav-menu{gap:0}.nav-menu a{padding:9px 8px;font-size:12px}.facility-grid,.news-grid{grid-template-columns:repeat(2,1fr)}.ppdb-grid{grid-template-columns:repeat(2,1fr)}.footer-top{grid-template-columns:2fr 1fr 1fr 1fr}.map-overlay{align-items:flex-start;flex-direction:column}.map-overlay .btn{width:100%;text-align:center}}
 @media (max-width:900px){.top-strip-note{display:block}.menu-toggle{display:block}.nav-menu{position:absolute;left:20px;right:20px;top:calc(100% + 10px);background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:10px;display:none;flex-direction:column;align-items:stretch}.nav-menu.open{display:flex}.nav-menu a{padding:12px}.hero{min-height:610px}.info-grid{grid-template-columns:repeat(2,1fr)}.grid-2,.contact-grid{grid-template-columns:1fr}.headmaster-card{grid-template-columns:1fr}.headmaster-photo{min-height:320px}.staff-grid{grid-template-columns:repeat(2,1fr)}.contact-left{order:2}.contact-form{order:1}.activity-grid{grid-template-columns:1fr 1fr;grid-template-rows:250px 200px 200px}.activity-card.large{grid-column:span 2;grid-row:auto}.achievement-grid{grid-template-columns:1fr 1fr}.footer-top{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.container{width:min(var(--container),calc(100% - 24px))}.section{padding:72px 0}.top-strip-inner{font-size:10px}.brand-copy strong{font-size:11px}.brand-copy span{font-size:9px}.brand-mark{width:40px;height:40px;border-radius:12px}.hero-content{padding:76px 0 118px}.hero h1{font-size:44px}.hero-tagline{font-size:16px}.search-wrap{border-radius:14px}.search-wrap button{padding:11px 14px}.hero-actions .btn{flex:1 1 calc(50% - 8px)}.info-grid{grid-template-columns:1fr 1fr}.info-tile{padding:12px}.info-icon{width:38px;height:38px}.info-tile strong{font-size:11px}.section-heading{display:block;margin-bottom:30px}.section-heading p{margin-top:12px}.mini-stats{grid-template-columns:1fr 1fr}.profile-block{grid-template-columns:1fr}.compact-blocks{grid-template-columns:1fr}.goal-grid{grid-template-columns:1fr}.staff-grid{grid-template-columns:1fr}.facility-grid,.news-grid{grid-template-columns:1fr}.filter-toolbar{display:grid;grid-template-columns:1fr;margin:0 0 20px}.input-icon{min-width:0}.announcement-item{grid-template-columns:56px 1fr;align-items:start}.announcement-arrow{display:none}.activity-grid{grid-template-columns:1fr;grid-template-rows:230px 190px 190px 190px 190px}.activity-card.large{grid-column:auto}.achievement-grid,.ppdb-grid{grid-template-columns:1fr}.ppdb-hero{display:block;padding:26px}.ppdb-hero h2{font-size:29px}.ppdb-hero .btn{margin-top:17px}.contact-cards{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr 1fr}.footer-bottom{display:block}.footer-bottom span{display:block;margin-top:3px}.modal{padding:12px}.modal-dialog{padding:20px;border-radius:20px}.modal-dialog h2{font-size:24px}.back-top{right:14px;bottom:14px}}
+@media (max-width:620px){.container{width:min(var(--container),calc(100% - 24px))}.section{padding:72px 0}.top-strip-inner{font-size:10px}.brand-copy strong{font-size:11px}.brand-copy span{font-size:9px}.brand-mark{width:44px;height:44px;border-radius:12px;padding:3px}.hero-content{padding:76px 0 118px}.hero h1{font-size:44px}.hero-tagline{font-size:16px}.search-wrap{border-radius:14px}.search-wrap button{padding:11px 14px}.hero-actions .btn{flex:1 1 calc(50% - 8px)}.info-grid{grid-template-columns:1fr 1fr}.info-tile{padding:12px}.info-icon{width:38px;height:38px}.info-tile strong{font-size:11px}.section-heading{display:block;margin-bottom:30px}.section-heading p{margin-top:12px}.mini-stats{grid-template-columns:1fr 1fr}.profile-block{grid-template-columns:1fr}.compact-blocks{grid-template-columns:1fr}.goal-grid{grid-template-columns:1fr}.staff-grid{grid-template-columns:1fr}.facility-grid,.news-grid{grid-template-columns:1fr}.filter-toolbar{display:grid;grid-template-columns:1fr;margin:0 0 20px}.input-icon{min-width:0}.announcement-item{grid-template-columns:56px 1fr;align-items:start}.announcement-arrow{display:none}.activity-grid{grid-template-columns:1fr;grid-template-rows:230px 190px 190px 190px 190px}.activity-card.large{grid-column:auto}.achievement-grid,.ppdb-grid{grid-template-columns:1fr}.ppdb-hero{display:block;padding:26px}.ppdb-hero h2{font-size:29px}.ppdb-hero .btn{margin-top:17px}.contact-cards{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr 1fr}.footer-bottom{display:block}.footer-bottom span{display:block;margin-top:3px}.modal{padding:12px}.modal-dialog{padding:20px;border-radius:20px}.modal-dialog h2{font-size:24px}.back-top{right:14px;bottom:14px}}
+
+/* Responsive refinement: menjaga layout tetap proporsional di desktop, tablet, dan mobile. */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.grid-2 > *, .profile-block > *, .compact-blocks > *, .headmaster-card > *,
+.facility-card, .news-card, .activity-card, .achievement-card, .ppdb-card,
+.contact-grid > *, .contact-left > *, .footer-top > *, .section-heading > * {
+  min-width: 0;
+}
+img, iframe {
+  max-width: 100%;
+}
+.section-heading h2, .profile-block h3, .vision-card h3, .mission-card h3,
+.content-card h3, .headmaster-copy h3, .ppdb-hero h2, .modal-dialog h2 {
+  overflow-wrap: anywhere;
+}
+.facility-grid {
+  align-items: stretch;
+}
+.facility-card {
+  min-width: 0;
+}
+.card-image-button {
+  width: 100%;
+}
+@media (max-width: 900px) {
+  .section-heading {
+    align-items: flex-start;
+  }
+  .headmaster-copy, .content-card, .profile-block, .vision-card, .mission-card, .structure-card,
+  .data-school-card, .accreditation-card, .contact-form {
+    min-width: 0;
+  }
+}
+@media (max-width: 620px) {
+  .section { padding: 64px 0; }
+  .hero { min-height: 590px; }
+  .hero-content { padding: 64px 0 105px; }
+  .hero h1 { font-size: clamp(36px, 10vw, 46px); line-height: 1.03; }
+  .section-heading h2 { font-size: clamp(28px, 8vw, 36px); }
+  .profile-block { padding: 24px; gap: 14px; }
+  .vision-card, .mission-card { padding: 24px; }
+  .vision-card h3 { font-size: clamp(23px, 6.5vw, 29px); }
+  .content-card { padding: 24px; }
+  .headmaster-copy { padding: 26px 24px; }
+  .headmaster-photo { min-height: 300px; }
+  .facility-card .facility-copy { padding: 20px; }
+  .activity-card .activity-overlay, .news-card .news-copy { min-width: 0; }
+  .footer-top { gap: 22px; }
+}
+@media (max-width: 420px) {
+  .container { width: calc(100% - 20px); }
+  .hero h1 { font-size: 35px; }
+  .hero-actions .btn { flex: 1 1 100%; }
+  .info-grid { grid-template-columns: 1fr; }
+  .mini-stats { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .map-frame { height: 300px; }
+}
